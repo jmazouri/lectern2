@@ -5,13 +5,14 @@ using NLog;
 
 namespace Lectern2.Configuration
 {
-    public class DefaultConfiguration<T> : IConfiguration<T> where T : DefaultConfiguration<T>
+    public class DefaultConfiguration<T> where T : DefaultConfiguration<T>
     {
         protected Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public DefaultConfiguration()
+        protected DefaultConfiguration()
         {
             Name = typeof (T).Name;
+            Load();
         }
 
         [JsonIgnore]
@@ -27,6 +28,11 @@ namespace Lectern2.Configuration
         {
             try
             {
+                if (!File.Exists(ConfigPath))
+                {
+                    Save();
+                }
+
                 string jsonContent = File.ReadAllText(ConfigPath);
                 return JsonConvert.DeserializeObject<T>(jsonContent);
             }

@@ -1,9 +1,10 @@
-﻿using Lectern2.Configuration;
+﻿using Lectern2;
+using Lectern2.Bridges;
+using Lectern2.Configuration;
 using Lectern2.Plugins;
-using Lectern2Tests.TestClasses;
 using NLog;
 
-namespace Lectern2.Bridges
+namespace Lectern2Tests.TestClasses
 {
     public class TestLecternBridge : ILecternBridge
     {
@@ -12,12 +13,6 @@ namespace Lectern2.Bridges
         public LecternConfiguration Configuration { get; set; }
 
         public IPluginManager PluginManager { get; set; }
-
-        public TestLecternBridge()
-        {
-            PluginManager = new TestPluginManager();
-            Configuration = new TestLecternConfiguration();
-        }
 
         public void Connect()
         {

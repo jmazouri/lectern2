@@ -7,7 +7,7 @@ namespace Lectern2Tests.TestClasses
     {
         public override void RecieveMessage(LecternMessage message)
         {
-            logger.Info("Message was Recieved by plugin {0}: {1}", Name, message.ToJson());
+            logger.Info("Message was Recieved by plugin {0}: {1}", Name, message.ToJson(false));
         }
     }
 }

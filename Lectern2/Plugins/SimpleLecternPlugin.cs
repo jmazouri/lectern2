@@ -15,7 +15,7 @@ namespace Lectern2.Plugins
             logger.Info("Plugin {0} was loaded.", Name);
         }
 
-        public void Unload()
+        public virtual void Unload()
         {
             logger.Info("Plugin {0} was unloaded.", Name);
         }

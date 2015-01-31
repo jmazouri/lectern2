@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="Bridges\ILecternBridge.cs" />
     <Compile Include="Configuration\LecternConfiguration.cs" />
-    <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\DefaultConfiguration.cs" />
     <Compile Include="PluginContainer.cs" />
     <Compile Include="Plugins\ILecternPlugin.cs" />

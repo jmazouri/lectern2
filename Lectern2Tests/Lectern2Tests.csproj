@@ -69,13 +69,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LecternBridgeTests.cs" />
     <Compile Include="LecternMessageTests.cs" />
     <Compile Include="PluginManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClasses\TestLecternBridge.cs" />
-    <Compile Include="TestClasses\TestLecternConfiguration.cs" />
     <Compile Include="TestClasses\TestLecternPlugin.cs" />
     <Compile Include="TestClasses\TestPluginManager.cs" />
+    <Compile Include="TestInjections.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

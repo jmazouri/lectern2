@@ -5,7 +5,7 @@ namespace Lectern2.Configuration
     public class LecternConfiguration : DefaultConfiguration<LecternConfiguration>
     {
         [JsonProperty]
-        public string SimplePluginPrefix { get; protected set; }
+        public string SimplePluginPrefix { get; set; }
 
         public LecternConfiguration()
         {

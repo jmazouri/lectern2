@@ -7,6 +7,7 @@ namespace Lectern2Tests
 {
     public class PluginManagerTests
     {
+
         [Fact]
         public void TestPluginLoading()
         {

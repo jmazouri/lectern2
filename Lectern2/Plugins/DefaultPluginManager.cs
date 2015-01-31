@@ -1,30 +1,18 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Ninject;
-using Ninject.Extensions.Conventions;
 
 namespace Lectern2.Plugins
 {
-    public class DefaultPluginManager
+    public class DefaultPluginManager : IPluginManager
     {
-        public static IKernel CreateKernel()
+        public List<ILecternPlugin> LoadedPlugins
         {
-            var kernel = new StandardKernel();
-
-            if (!Directory.Exists("Plugins"))
+            get
             {
-                Directory.CreateDirectory("Plugins");
+                var Kernel = PluginContainer.Kernel;
+                return Kernel.GetAll<ILecternPlugin>().ToList();
             }
-
-            kernel.Bind(d =>
-            {
-                d.FromAssembliesInPath("Plugins")
-                    .SelectAllClasses()
-                    .InheritedFrom<ILecternPlugin>()
-                    .BindAllInterfaces()
-                    .Configure(c => c.InSingletonScope());
-            });
-
-            return kernel;
         }
     }
 }

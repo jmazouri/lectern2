@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Lectern2.Bridges;
 using Newtonsoft.Json;
 
@@ -42,9 +39,9 @@ namespace Lectern2
             Arguments = arguments.Skip(1).ToList();
         }
 
-        public string ToJson()
+        public string ToJson(bool indented = true)
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            return JsonConvert.SerializeObject(this, (indented ? Formatting.Indented : Formatting.None));
         }
 
         public List<string> Arguments { get; set; }

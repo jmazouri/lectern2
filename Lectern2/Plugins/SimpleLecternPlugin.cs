@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lectern2.Bridges;
+﻿using Lectern2.Bridges;
+using NLog;
 
 namespace Lectern2.Plugins
 {
     public abstract class SimpleLecternPlugin : ILecternPlugin
     {
+        protected Logger logger = LogManager.GetCurrentClassLogger();
+
         public ILecternBridge CurrentBridge;
         public string Name { get; private set; }
+
+        public virtual void Load()
+        {
+            logger.Info("Plugin {0} was loaded.", Name);
+        }
+
+        public void Unload()
+        {
+            logger.Info("Plugin {0} was unloaded.", Name);
+        }
 
         public abstract void RecieveMessage(LecternMessage message);
 

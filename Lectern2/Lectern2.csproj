@@ -61,6 +61,7 @@
     <Compile Include="Configuration\LecternConfiguration.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\DefaultConfiguration.cs" />
+    <Compile Include="PluginContainer.cs" />
     <Compile Include="Plugins\ILecternPlugin.cs" />
     <Compile Include="LecternMessage.cs" />
     <Compile Include="Plugins\IPluginManager.cs" />

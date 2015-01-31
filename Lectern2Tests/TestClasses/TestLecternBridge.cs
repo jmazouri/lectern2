@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lectern2.Configuration;
+﻿using Lectern2.Configuration;
 using Lectern2.Plugins;
 using Lectern2Tests.TestClasses;
 using NLog;

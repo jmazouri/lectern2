@@ -30,7 +30,7 @@ namespace Lectern2Tests
                 return new[]
                 {
                     new object[] { "/ln one two three", "{\"MessageBody\":\"/ln one two three\",\"Arguments\":[\"one\",\"two\",\"three\"]}" },
-                    new object[] { "/ln kick \"Offensive Name\"", "{\"MessageBody\":\"/ln kick \"Offensive Name\"\",\"Arguments\":[\"kick\",\"Offensive Name\"]}" },
+                    new object[] { "/ln kick \"Offensive Name\"", "{\"MessageBody\":\"/ln kick \\\"Offensive Name\\\"\",\"Arguments\":[\"kick\",\"Offensive Name\"]}" },
                 };
             }
         }

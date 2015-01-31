@@ -13,36 +13,6 @@ namespace Lectern2
 
     public class PluginContainer
     {
-        private class PluginBindingGenerator : IBindingGenerator
-        {
-            private readonly Type pluginInterfaceType = typeof(ILecternPlugin);
-
-            public IEnumerable<IBindingWhenInNamedWithOrOnSyntax<object>> CreateBindings(Type type, IBindingRoot bindingRoot)
-            {
-                if (type == null)
-                {
-                    throw new ArgumentNullException("type");
-                }
-
-                if (bindingRoot == null)
-                {
-                    throw new ArgumentNullException("bindingRoot");
-                }
-
-                if (type.IsInterface || type.IsAbstract)
-                {
-                    return Enumerable.Empty<IBindingWhenInNamedWithOrOnSyntax<object>>();
-                }
-
-                if (!pluginInterfaceType.IsAssignableFrom(type))
-                {
-                    return Enumerable.Empty<IBindingWhenInNamedWithOrOnSyntax<object>>();
-                }
-
-                return new[] { bindingRoot.Bind(type.BaseType).To(type) };
-            }
-        }
-
         private static IKernel _kernel;
 
         public static IKernel Kernel

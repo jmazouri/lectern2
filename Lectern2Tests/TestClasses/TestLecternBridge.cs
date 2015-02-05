@@ -1,4 +1,5 @@
-﻿using Lectern2;
+﻿using System.ComponentModel.Composition;
+using Lectern2;
 using Lectern2.Bridges;
 using Lectern2.Configuration;
 using Lectern2.Plugins;

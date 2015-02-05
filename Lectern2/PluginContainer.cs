@@ -1,25 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Registration;
 using Lectern2.Bridges;
+using Lectern2.Configuration;
 using Lectern2.Plugins;
-using Ninject;
-using Ninject.Extensions.Conventions;
-using Ninject.Extensions.Conventions.BindingGenerators;
-using Ninject.Modules;
-using Ninject.Syntax;
 
 namespace Lectern2
 {
     public class PluginContainer
     {
-        private static IKernel _kernel;
-
         public static string PluginDirectory
         {
             get { return "../../../Plugins"; }
         }
+
+        private static CompositionContainer _iocContainer;
+
+        public static CompositionContainer Container
+        {
+            get
+            {
+                if (_iocContainer != null) return _iocContainer;
+
+                var registration = new RegistrationBuilder();
+
+                registration.ForTypesMatching(d => true)
+                    .ImportProperties<ILecternBridge>(d=>true)
+                    .Export();
+
+                var catalog = new AssemblyCatalog(System.Reflection.Assembly.GetCallingAssembly(), registration);
+
+                _iocContainer = new CompositionContainer(catalog);
+
+                return _iocContainer;
+            }
+        }
+
+        /*
+        private static IKernel _kernel;
+
+        
 
         public static IKernel Kernel
         {
@@ -49,5 +70,6 @@ namespace Lectern2
                 return _kernel;
             }
         }
+        */
     }
 }

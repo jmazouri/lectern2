@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Ninject;
 
 namespace Lectern2.Plugins
 {
@@ -10,8 +9,7 @@ namespace Lectern2.Plugins
         {
             get
             {
-                var Kernel = PluginContainer.Kernel;
-                return Kernel.GetAll<ILecternPlugin>().ToList();
+                return PluginContainer.Container.GetExports<ILecternPlugin>().Select(d=>d.Value).ToList();
             }
         }
     }

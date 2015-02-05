@@ -2,10 +2,13 @@
 using Lectern2.Plugins;
 using Lectern2Tests.TestClasses;
 using Xunit;
+using Xunit.Ioc;
 
 namespace Lectern2Tests
 {
-    public class PluginManagerTests
+    [RunWith(typeof(IocTestClassCommand))]
+    [DependencyResolverBootstrapper(typeof(MEFContainerBootstrapper))]
+    public class PluginManagerTests : BaseTest
     {
 
         [Fact]

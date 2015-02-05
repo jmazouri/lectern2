@@ -2,16 +2,17 @@
 using Lectern2;
 using Lectern2.Bridges;
 using Lectern2Tests.TestClasses;
-using Ninject;
 using Xunit;
+using Xunit.Extensions;
+using Xunit.Ioc;
 
 namespace Lectern2Tests
 {
-    public class LecternMessageTests
+    [RunWith(typeof(IocTestClassCommand))]
+    [DependencyResolverBootstrapper(typeof(MEFContainerBootstrapper))]
+    public class LecternMessageTests : BaseTest
     {
-        public ILecternBridge bridge = PluginContainer.Kernel.Get<TestLecternBridge>();
-
-        [Theory, MemberData("TestArgumentData")]
+        [Theory, PropertyData("TestArgumentData")]
         public void TestArguments(string messagetext, List<string> expected )
         {
             var message = new LecternMessage(messagetext, bridge);
@@ -19,7 +20,7 @@ namespace Lectern2Tests
             Assert.Equal(expected, message.Arguments);
         }
 
-        [Theory, MemberData("TestSerializationData")]
+        [Theory, PropertyData("TestSerializationData")]
         public void TestSerialization(string messagetext, string expected)
         {
             var message = new LecternMessage(messagetext, bridge);

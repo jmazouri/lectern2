@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Lectern2;
 using Lectern2.Bridges;
+using Lectern2Tests.TestClasses;
 
 namespace Lectern2Tests
 {
@@ -15,8 +16,7 @@ namespace Lectern2Tests
 
         public BaseTest()
         {
-            //Init the container
-            var d = PluginContainer.Container;
+            bridge = new TestLecternBridge();
         }
     }
 }

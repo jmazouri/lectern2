@@ -12,7 +12,6 @@ namespace Lectern2.Configuration
         protected DefaultConfiguration()
         {
             Name = typeof (T).Name;
-            Load();
         }
 
         [JsonIgnore]
@@ -39,8 +38,9 @@ namespace Lectern2.Configuration
             catch (Exception ex)
             {
                 Logger.Error("Couldn't load config file for {0}, path was \"{1}\", exception: {2}", Name, ConfigPath, ex);
-                throw;
             }
+
+            return (T) this;
         }
 
         public void Save()
@@ -53,7 +53,6 @@ namespace Lectern2.Configuration
             catch (Exception ex)
             {
                 Logger.Error("Couldn't save config file for {0}, path was \"{1}\", exception: {2}", Name, ConfigPath, ex);
-                throw;
             }
             
         }

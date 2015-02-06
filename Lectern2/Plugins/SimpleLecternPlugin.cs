@@ -7,7 +7,8 @@ namespace Lectern2.Plugins
     {
         protected Logger logger = LogManager.GetCurrentClassLogger();
 
-        public ILecternBridge CurrentBridge;
+        public ILecternBridge Bridge { get; set; }
+
         public string Name { get; private set; }
 
         public virtual void Load()

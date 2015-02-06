@@ -4,15 +4,13 @@ using Lectern2.Bridges;
 using Lectern2Tests.TestClasses;
 using Xunit;
 using Xunit.Extensions;
-using Xunit.Ioc;
 
 namespace Lectern2Tests
 {
-    [RunWith(typeof(IocTestClassCommand))]
-    [DependencyResolverBootstrapper(typeof(MEFContainerBootstrapper))]
     public class LecternMessageTests : BaseTest
     {
-        [Theory, PropertyData("TestArgumentData")]
+        [Theory]
+        [MemberData("TestArgumentData")]
         public void TestArguments(string messagetext, List<string> expected )
         {
             var message = new LecternMessage(messagetext, bridge);
@@ -20,7 +18,8 @@ namespace Lectern2Tests
             Assert.Equal(expected, message.Arguments);
         }
 
-        [Theory, PropertyData("TestSerializationData")]
+        [Theory]
+        [MemberData("TestSerializationData")]
         public void TestSerialization(string messagetext, string expected)
         {
             var message = new LecternMessage(messagetext, bridge);

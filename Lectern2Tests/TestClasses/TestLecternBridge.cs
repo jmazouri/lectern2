@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Lectern2;
 using Lectern2.Bridges;
 using Lectern2.Configuration;
 using Lectern2.Plugins;
 using NLog;
+using Xunit;
 
 namespace Lectern2Tests.TestClasses
 {
@@ -15,6 +17,12 @@ namespace Lectern2Tests.TestClasses
 
         public IPluginManager PluginManager { get; set; }
 
+        public TestLecternBridge()
+        {
+            Configuration = new LecternConfiguration();
+            Configuration = Configuration.Load();
+        }
+
         public void Connect()
         {
             _logger.Info("TestBridge Connected");
@@ -22,12 +30,12 @@ namespace Lectern2Tests.TestClasses
 
         public void SendMessage(LecternMessage message)
         {
-            _logger.Info("Message was Sent: {0}", message.ToJson());
+            Assert.True(true, String.Format("Message was Sent: {0}", message.ToJson()));
         }
 
         public void RecieveMessage(LecternMessage message)
         {
-            _logger.Info("Message was Recieved: {0}", message.ToJson());
+            Assert.True(true, String.Format("Message was Recieved: {0}", message.ToJson()));
         }
     }
 }

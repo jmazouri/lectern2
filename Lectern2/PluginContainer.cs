@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Registration;
+using System.Reflection;
 using Lectern2.Bridges;
 using Lectern2.Configuration;
 using Lectern2.Plugins;
@@ -25,11 +26,14 @@ namespace Lectern2
 
                 var registration = new RegistrationBuilder();
 
-                registration.ForTypesMatching(d => true)
-                    .ImportProperties<ILecternBridge>(d=>true)
-                    .Export();
+                registration.ForTypesDerivedFrom<ILecternPlugin>()
+                    .ImportProperty<ILecternBridge>(d => d.Bridge)
+                    .Export<ILecternPlugin>();
 
-                var catalog = new AssemblyCatalog(System.Reflection.Assembly.GetCallingAssembly(), registration);
+                DirectoryCatalog dircat = new DirectoryCatalog(PluginDirectory, registration);
+                AssemblyCatalog asscat = new AssemblyCatalog(Assembly.GetCallingAssembly());
+                AggregateCatalog catalog = new AggregateCatalog(dircat, asscat);
+                
 
                 _iocContainer = new CompositionContainer(catalog);
 

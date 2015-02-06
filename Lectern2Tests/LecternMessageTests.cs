@@ -46,7 +46,8 @@ namespace Lectern2Tests
                 {
                     new object[] { "/ln one two three", new List<string> { "one", "two", "three" } },
                     new object[] { "/ln kick \"Offensive Name\"", new List<string> { "kick", "Offensive Name" } },
-                    new object[] { "/ln weird", new List<string> { "weird" } }
+                    new object[] { "/ln weird", new List<string> { "weird" } },
+                    new object[] { "hello world!", new List<string> { "hello", "world!"}}
                 };
             }
         }

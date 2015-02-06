@@ -23,7 +23,7 @@ namespace Lectern2
 
         private void ParseArguments()
         {
-            if (MessageBody == null || MessageBody.Length >= lecternBridge.Configuration.SimplePluginPrefix.Length)
+            if (MessageBody == null)
             {
                 Arguments = new List<string>();
             }
@@ -36,7 +36,14 @@ namespace Lectern2
                 arguments.Add(match.Value.Trim());
             }
 
-            Arguments = arguments.Skip(1).ToList();
+            if (arguments.FirstOrDefault() == lecternBridge.Configuration.SimplePluginPrefix)
+            {
+                Arguments = arguments.Skip(1).ToList();
+            }
+            else
+            {
+                Arguments = arguments.ToList();
+            }
         }
 
         public string ToJson(bool indented = true)

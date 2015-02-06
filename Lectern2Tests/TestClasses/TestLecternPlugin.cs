@@ -1,4 +1,5 @@
 ﻿using Lectern2;
+using Lectern2.Bridges;
 using Lectern2.Plugins;
 
 namespace Lectern2Tests.TestClasses
@@ -9,5 +10,6 @@ namespace Lectern2Tests.TestClasses
         {
             logger.Info("Message was Recieved by plugin {0}: {1}", Name, message.ToJson(false));
         }
+
     }
 }

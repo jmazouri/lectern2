@@ -30,12 +30,12 @@ namespace Lectern2Tests.TestClasses
 
         public void SendMessage(LecternMessage message)
         {
-            Assert.True(true, String.Format("Message was Sent: {0}", message.ToJson()));
+            _logger.Info("Message was Sent: {0}", message.ToJson());
         }
 
         public void RecieveMessage(LecternMessage message)
         {
-            Assert.True(true, String.Format("Message was Recieved: {0}", message.ToJson()));
+            _logger.Info("Message was Recieved: {0}", message.ToJson());
         }
     }
 }

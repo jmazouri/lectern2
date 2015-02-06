@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
 using System.ComponentModel.Composition.Registration;
+using System.Linq;
 using System.Reflection;
 using Lectern2.Bridges;
 using Lectern2.Configuration;
@@ -26,16 +29,33 @@ namespace Lectern2
 
                 var registration = new RegistrationBuilder();
 
-                registration.ForTypesDerivedFrom<ILecternPlugin>()
-                    .ImportProperty<ILecternBridge>(d => d.Bridge)
-                    .Export<ILecternPlugin>();
+                registration.ForTypesDerivedFrom<ILecternBridge>()
+                    .SetCreationPolicy(CreationPolicy.Shared)
+                    .Export<ILecternBridge>();
 
+                registration.ForTypesDerivedFrom<ILecternPlugin>()
+                    .Export<ILecternPlugin>()
+                    .SetCreationPolicy(CreationPolicy.Shared)
+                    .ImportProperties(d => d.PropertyType.IsAssignableFrom(typeof (ILecternBridge)));
+                    
                 DirectoryCatalog dircat = new DirectoryCatalog(PluginDirectory, registration);
-                AssemblyCatalog asscat = new AssemblyCatalog(Assembly.GetCallingAssembly());
-                AggregateCatalog catalog = new AggregateCatalog(dircat, asscat);
-                
+
+                var assemblyCatalogs = new List<ComposablePartCatalog>();
+
+                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    if (assembly.FullName.ToLowerInvariant().Contains("lectern"))
+                    {
+                        assemblyCatalogs.Add(new AssemblyCatalog(assembly, registration));
+                    }
+                }
+
+                assemblyCatalogs.Add(dircat);
+
+                AggregateCatalog catalog = new AggregateCatalog(assemblyCatalogs);
 
                 _iocContainer = new CompositionContainer(catalog);
+                _iocContainer.ComposeParts();
 
                 return _iocContainer;
             }

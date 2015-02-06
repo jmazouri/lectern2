@@ -1,4 +1,5 @@
-﻿using Lectern2.Bridges;
+﻿using System.ComponentModel.Composition;
+using Lectern2.Bridges;
 using NLog;
 
 namespace Lectern2.Plugins
@@ -10,6 +11,11 @@ namespace Lectern2.Plugins
         public ILecternBridge Bridge { get; set; }
 
         public string Name { get; private set; }
+
+        protected SimpleLecternPlugin()
+        {
+            Name = GetType().Name;
+        }
 
         public virtual void Load()
         {
@@ -23,9 +29,5 @@ namespace Lectern2.Plugins
 
         public abstract void RecieveMessage(LecternMessage message);
 
-        protected SimpleLecternPlugin()
-        {
-            Name = GetType().Name;
-        }
     }
 }

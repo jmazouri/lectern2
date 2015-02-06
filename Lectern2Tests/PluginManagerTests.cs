@@ -8,23 +8,17 @@ namespace Lectern2Tests
 
     public class PluginManagerTests : BaseTest
     {
-
         [Fact]
         public void TestPluginLoading()
-        {
-            TestPluginManager man = new TestPluginManager();
-            Assert.True(man.LoadedPlugins.Any());
-            Assert.True(man.LoadedPlugins.Any(d => d.Name == "TestLecternPlugin"));
-        }
-
-        [Fact]
-        public void TestRealPluginLoading()
         {
             DefaultPluginManager man = new DefaultPluginManager();
             Assert.True(man.LoadedPlugins.Any(), "No plugins were found.");
             Assert.True(man.LoadedPlugins.Any(d => d.Name == "MiscTools"), "The default MiscTools plugin wasn't found.");
 
-            man.LoadedPlugins.First().Load();
+            foreach (ILecternPlugin plugin in man.LoadedPlugins)
+            {
+                plugin.Load();
+            }
         }
 
         

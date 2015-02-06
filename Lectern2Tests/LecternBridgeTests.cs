@@ -8,6 +8,7 @@ namespace Lectern2Tests
         [Fact]
         public void TestRecieveMessage()
         {
+            Assert.NotNull(bridge);
             bridge.RecieveMessage(new LecternMessage("Hello Test!", bridge));
         }
     }

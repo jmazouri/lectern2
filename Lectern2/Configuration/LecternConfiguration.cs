@@ -6,22 +6,18 @@ namespace Lectern2.Configuration
     {
         public string SimplePluginPrefix { get; set; }
 
-        public LecternConfiguration()
+        private LecternConfiguration()
         {
-            var config = new LecternConfiguration
-            {
-                SimplePluginPrefix = "/lc"
-            };
-
-            ConfigurationManager.Load(ref config);
-            SimplePluginPrefix = config.SimplePluginPrefix;
+            SimplePluginPrefix = "/ln";
         }
 
         public static LecternConfiguration Instance 
         {
             get
             {
-                return GlobalContainer.Container.GetExport<LecternConfiguration>().Value;
+                LecternConfiguration config = GlobalContainer.Container.GetExport<LecternConfiguration>().Value;
+                ConfigurationManager.Load(ref config);
+                return config;
             }
         }
         

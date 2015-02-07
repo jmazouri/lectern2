@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NLog;
 
 namespace Lectern2.Configuration
 {
     public static class ConfigurationManager
     {
-        private static Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public static string ConfigPath(string Name)
         {
@@ -27,14 +28,11 @@ namespace Lectern2.Configuration
             {
                 if (!File.Exists(configPath))
                 {
-                    Save<T>(instance);
+                    Save(instance);
                 }
 
                 string jsonContent = File.ReadAllText(configPath);
-                JsonConvert.DeserializeObject<T>(jsonContent, new JsonSerializerSettings()
-                {
-                    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
-                });
+                JsonConvert.DeserializeObject<T>(jsonContent);
 
                 instance = JsonConvert.DeserializeObject<T>(jsonContent);
             }
@@ -47,11 +45,11 @@ namespace Lectern2.Configuration
 
         public static void Save<T>(T instance)
         {
-            string configPath = ConfigPath(typeof(T).Name);
+            string configPath = ConfigPath(typeof(T).Name); 
 
             try
             {
-                string jsonContent = JsonConvert.SerializeObject(instance);
+                string jsonContent = JsonConvert.SerializeObject(instance, new JsonSerializerSettings());
                 File.WriteAllText(configPath, jsonContent);
             }
             catch (Exception ex)

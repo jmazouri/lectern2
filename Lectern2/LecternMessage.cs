@@ -19,6 +19,7 @@ namespace Lectern2
         {
             MessageBody = message;
 
+            //If for some reason the regex isn't compiled, just use the slow version
             if (ArgumentRegex == null)
             {
                 _logger.Warn("The regex for LecternMessages wasn't compiled! This will reduce performance.");
@@ -35,7 +36,6 @@ namespace Lectern2
 
         private void ParseArguments()
         {
-
             if (MessageBody == null)
             {
                 Arguments = new List<string>();
@@ -49,6 +49,7 @@ namespace Lectern2
                 arguments.Add(match.Value.Trim());
             }
 
+            //If the simple plugin prefix is being used, don't include it in the argument list
             if (arguments.FirstOrDefault() == LecternConfiguration.Instance.SimplePluginPrefix)
             {
                 Arguments = arguments.Skip(1).ToList();

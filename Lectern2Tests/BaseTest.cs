@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lectern2;
-using Lectern2.Bridges;
+using Lectern2.Interfaces;
 using Lectern2Tests.TestClasses;
 
 namespace Lectern2Tests
@@ -16,7 +16,8 @@ namespace Lectern2Tests
 
         public BaseTest()
         {
-            bridge = new TestLecternBridge();
+            LecternMessage.LoadRegex();
+            bridge = GlobalContainer.Container.GetExport<ILecternBridge>().Value;
         }
     }
 }

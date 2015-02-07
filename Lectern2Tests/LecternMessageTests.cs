@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Lectern2;
-using Lectern2.Bridges;
 using Lectern2Tests.TestClasses;
 using Xunit;
 using Xunit.Extensions;
@@ -13,7 +12,7 @@ namespace Lectern2Tests
         [MemberData("TestArgumentData")]
         public void TestArguments(string messagetext, List<string> expected )
         {
-            var message = new LecternMessage(messagetext, bridge);
+            var message = new LecternMessage(messagetext);
 
             Assert.Equal(expected, message.Arguments);
         }
@@ -22,7 +21,7 @@ namespace Lectern2Tests
         [MemberData("TestSerializationData")]
         public void TestSerialization(string messagetext, string expected)
         {
-            var message = new LecternMessage(messagetext, bridge);
+            var message = new LecternMessage(messagetext);
             Assert.Equal(expected, message.ToJson(false));
         }
 

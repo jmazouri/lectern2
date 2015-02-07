@@ -1,6 +1,4 @@
-﻿using Lectern2.Bridges;
-
-namespace Lectern2.Plugins
+﻿namespace Lectern2.Interfaces
 {
     public interface ILecternPlugin
     {

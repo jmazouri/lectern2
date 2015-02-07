@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lectern2.Plugins
+namespace Lectern2.Interfaces
 {
     public interface IPluginManager
     {

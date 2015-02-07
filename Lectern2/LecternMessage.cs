@@ -1,42 +1,55 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Lectern2.Bridges;
+using Lectern2.Configuration;
+using Lectern2.Interfaces;
 using Newtonsoft.Json;
+using NLog;
 
 namespace Lectern2
 {
     public class LecternMessage
     {
-        [JsonIgnore]
-        private ILecternBridge lecternBridge;
-
+        private Logger _logger = LogManager.GetCurrentClassLogger();
         public string MessageBody { get; set; }
+        private static Regex ArgumentRegex;
 
-        public LecternMessage(string message, ILecternBridge bridge)
+        public LecternMessage(string message)
         {
             MessageBody = message;
-            lecternBridge = bridge;
+
+            if (ArgumentRegex == null)
+            {
+                _logger.Warn("The regex for LecternMessages wasn't compiled! This will reduce performance.");
+                ArgumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*");
+            }
 
             ParseArguments();
         }
 
+        public static void LoadRegex()
+        {
+            ArgumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*", RegexOptions.Compiled);
+        }
+
         private void ParseArguments()
         {
+
             if (MessageBody == null)
             {
                 Arguments = new List<string>();
+                return;
             }
 
-            Regex rx = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*");
             List<string> arguments = new List<string>();
 
-            for (var match = rx.Match(MessageBody); match.Success; match = match.NextMatch())
+            for (var match = ArgumentRegex.Match(MessageBody); match.Success; match = match.NextMatch())
             {
                 arguments.Add(match.Value.Trim());
             }
 
-            if (arguments.FirstOrDefault() == lecternBridge.Configuration.SimplePluginPrefix)
+            if (arguments.FirstOrDefault() == LecternConfiguration.Instance.SimplePluginPrefix)
             {
                 Arguments = arguments.Skip(1).ToList();
             }

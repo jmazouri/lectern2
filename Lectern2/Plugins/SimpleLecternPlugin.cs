@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.Composition;
-using Lectern2.Bridges;
+using Lectern2.Interfaces;
 using NLog;
 
 namespace Lectern2.Plugins

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Lectern2;
-using Lectern2.Bridges;
 using Lectern2.Configuration;
+using Lectern2.Interfaces;
 using Lectern2.Plugins;
 using NLog;
 using Xunit;
@@ -13,15 +13,7 @@ namespace Lectern2Tests.TestClasses
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public LecternConfiguration Configuration { get; set; }
-
         public IPluginManager PluginManager { get; set; }
-
-        public TestLecternBridge()
-        {
-            Configuration = new LecternConfiguration();
-            Configuration = Configuration.Load();
-        }
 
         public void Connect()
         {

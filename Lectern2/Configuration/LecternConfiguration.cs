@@ -2,13 +2,28 @@
 
 namespace Lectern2.Configuration
 {
-    public class LecternConfiguration : DefaultConfiguration<LecternConfiguration>
+    public class LecternConfiguration
     {
         public string SimplePluginPrefix { get; set; }
 
         public LecternConfiguration()
         {
-            SimplePluginPrefix = "/lc";
+            var config = new LecternConfiguration
+            {
+                SimplePluginPrefix = "/lc"
+            };
+
+            ConfigurationManager.Load(ref config);
+            SimplePluginPrefix = config.SimplePluginPrefix;
         }
+
+        public static LecternConfiguration Instance 
+        {
+            get
+            {
+                return GlobalContainer.Container.GetExport<LecternConfiguration>().Value;
+            }
+        }
+        
     }
 }

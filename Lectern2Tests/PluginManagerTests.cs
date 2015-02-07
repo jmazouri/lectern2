@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Lectern2.Interfaces;
 using Lectern2.Plugins;
 using Lectern2Tests.TestClasses;
 using Xunit;

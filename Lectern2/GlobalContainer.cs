@@ -6,13 +6,13 @@ using System.ComponentModel.Composition.Primitives;
 using System.ComponentModel.Composition.Registration;
 using System.Linq;
 using System.Reflection;
-using Lectern2.Bridges;
 using Lectern2.Configuration;
+using Lectern2.Interfaces;
 using Lectern2.Plugins;
 
 namespace Lectern2
 {
-    public class PluginContainer
+    public static class GlobalContainer
     {
         public static string PluginDirectory
         {
@@ -29,9 +29,14 @@ namespace Lectern2
 
                 var registration = new RegistrationBuilder();
 
+                registration.ForType<LecternConfiguration>()
+                    .SetCreationPolicy(CreationPolicy.Shared)
+                    .Export<LecternConfiguration>();
+
                 registration.ForTypesDerivedFrom<ILecternBridge>()
                     .SetCreationPolicy(CreationPolicy.Shared)
-                    .Export<ILecternBridge>();
+                    .Export<ILecternBridge>()
+                    .ImportProperties(d => d.PropertyType.IsAssignableFrom(typeof (LecternConfiguration)));
 
                 registration.ForTypesDerivedFrom<ILecternPlugin>()
                     .Export<ILecternPlugin>()
@@ -54,7 +59,7 @@ namespace Lectern2
 
                 AggregateCatalog catalog = new AggregateCatalog(assemblyCatalogs);
 
-                _iocContainer = new CompositionContainer(catalog);
+                _iocContainer = new CompositionContainer(catalog, CompositionOptions.DisableSilentRejection | CompositionOptions.IsThreadSafe);
                 _iocContainer.ComposeParts();
 
                 return _iocContainer;

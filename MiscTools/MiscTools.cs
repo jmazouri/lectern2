@@ -1,5 +1,4 @@
 ﻿using Lectern2;
-using Lectern2.Bridges;
 using Lectern2.Plugins;
 
 namespace MiscTools

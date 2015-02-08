@@ -34,10 +34,14 @@ namespace Lectern2
                     .SetCreationPolicy(CreationPolicy.Shared)
                     .Export<LecternConfiguration>();
 
+                registration.ForTypesDerivedFrom<IPluginManager>()
+                    .SetCreationPolicy(CreationPolicy.Shared)
+                    .Export<IPluginManager>();
+
                 registration.ForTypesDerivedFrom<ILecternBridge>()
                     .SetCreationPolicy(CreationPolicy.Shared)
                     .Export<ILecternBridge>()
-                    .ImportProperties(d => d.PropertyType.IsAssignableFrom(typeof (LecternConfiguration)));
+                    .ImportProperties(d => d.PropertyType.IsAssignableFrom(typeof(LecternConfiguration)) | d.PropertyType.IsAssignableFrom(typeof(IPluginManager)));
 
                 registration.ForTypesDerivedFrom<ILecternPlugin>()
                     .Export<ILecternPlugin>()

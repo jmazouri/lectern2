@@ -5,9 +5,10 @@ namespace Lectern2Tests.TestClasses
 {
     public class TestLecternPlugin : SimpleLecternPlugin
     {
-        public override void RecieveMessage(LecternMessage message)
+        public override string RecieveMessage(LecternMessage message)
         {
             logger.Info("Message was Recieved by plugin {0}: {1}", Name, message.ToJson(false));
+            return "It works.";
         }
 
     }

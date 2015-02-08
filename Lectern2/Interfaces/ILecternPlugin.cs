@@ -6,5 +6,6 @@
         string Name { get; }
         void Load();
         void Unload();
+        string RecieveMessage(LecternMessage message);
     }
 }

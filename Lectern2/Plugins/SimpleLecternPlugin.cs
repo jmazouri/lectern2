@@ -27,7 +27,7 @@ namespace Lectern2.Plugins
             logger.Info("Plugin {0} was unloaded.", Name);
         }
 
-        public abstract void RecieveMessage(LecternMessage message);
+        public abstract string RecieveMessage(LecternMessage message);
 
     }
 }

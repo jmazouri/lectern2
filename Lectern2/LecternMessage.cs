@@ -12,8 +12,24 @@ namespace Lectern2
     public class LecternMessage
     {
         private Logger _logger = LogManager.GetCurrentClassLogger();
-        public string MessageBody { get; set; }
+
+        private string _messageBody = null;
+        public string MessageBody
+        {
+            get
+            {
+                return _messageBody;
+            }
+            set
+            {
+                _messageBody = value;
+                ParseArguments();
+            }
+        }
+
         private static Regex ArgumentRegex;
+
+        public List<string> Arguments { get; set; }
 
         public LecternMessage(string message)
         {
@@ -25,8 +41,6 @@ namespace Lectern2
                 _logger.Warn("The regex for LecternMessages wasn't compiled! This will reduce performance.");
                 ArgumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*");
             }
-
-            ParseArguments();
         }
 
         public static void LoadRegex()
@@ -42,29 +56,26 @@ namespace Lectern2
                 return;
             }
 
+            string tempBody = MessageBody;
+
+            if (tempBody.FirstOrDefault() == '/')
+            {
+                tempBody = tempBody.Substring(1, tempBody.Length - 1);
+            }
+
             List<string> arguments = new List<string>();
 
-            for (var match = ArgumentRegex.Match(MessageBody); match.Success; match = match.NextMatch())
+            for (var match = ArgumentRegex.Match(tempBody); match.Success; match = match.NextMatch())
             {
                 arguments.Add(match.Value.Trim());
             }
 
-            //If the simple plugin prefix is being used, don't include it in the argument list
-            if (arguments.FirstOrDefault() == LecternConfiguration.Instance.SimplePluginPrefix)
-            {
-                Arguments = arguments.Skip(1).ToList();
-            }
-            else
-            {
-                Arguments = arguments.ToList();
-            }
+            Arguments = arguments;
         }
 
         public string ToJson(bool indented = true)
         {
             return JsonConvert.SerializeObject(this, (indented ? Formatting.Indented : Formatting.None));
         }
-
-        public List<string> Arguments { get; set; }
     }
 }

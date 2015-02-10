@@ -34,7 +34,7 @@ namespace Lectern2
                     .SetCreationPolicy(CreationPolicy.Shared)
                     .Export<LecternConfiguration>();
 
-                registration.ForTypesDerivedFrom<IPluginManager>()
+                registration.ForType<DefaultPluginManager>()
                     .SetCreationPolicy(CreationPolicy.Shared)
                     .Export<IPluginManager>();
 

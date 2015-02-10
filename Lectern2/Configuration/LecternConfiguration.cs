@@ -4,15 +4,12 @@ namespace Lectern2.Configuration
 {
     public class LecternConfiguration : ConfigurationHost
     {
-        public string SimplePluginPrefix { get; set; }
-
         private LecternConfiguration()
         {
             /*
              * You can set defaults here, they get overridden
              * when the config gets loaded anyway
             */
-            SimplePluginPrefix = "/ln";
             Load();
         }
 

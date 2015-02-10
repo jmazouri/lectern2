@@ -31,8 +31,8 @@ namespace Lectern2Tests
             {
                 return new[]
                 {
-                    new object[] { "/ln one two three", "{\"MessageBody\":\"/ln one two three\",\"Arguments\":[\"one\",\"two\",\"three\"]}" },
-                    new object[] { "/ln kick \"Offensive Name\"", "{\"MessageBody\":\"/ln kick \\\"Offensive Name\\\"\",\"Arguments\":[\"kick\",\"Offensive Name\"]}" },
+                    new object[] { "/ln one two three", "{\"MessageBody\":\"/ln one two three\",\"Arguments\":[\"ln\",\"one\",\"two\",\"three\"]}" },
+                    new object[] { "/ln kick \"Offensive Name\"", "{\"MessageBody\":\"/ln kick \\\"Offensive Name\\\"\",\"Arguments\":[\"ln\",\"kick\",\"Offensive Name\"]}" },
                 };
             }
         }
@@ -43,9 +43,9 @@ namespace Lectern2Tests
             {
                 return new[]
                 {
-                    new object[] { "/ln one two three", new List<string> { "one", "two", "three" } },
-                    new object[] { "/ln kick \"Offensive Name\"", new List<string> { "kick", "Offensive Name" } },
-                    new object[] { "/ln weird", new List<string> { "weird" } },
+                    new object[] { "/ln one two three", new List<string> { "ln", "one", "two", "three" } },
+                    new object[] { "/ln kick \"Offensive Name\"", new List<string> { "ln", "kick", "Offensive Name" } },
+                    new object[] { "/ln weird", new List<string> { "ln", "weird" } },
                     new object[] { "hello world!", new List<string> { "hello", "world!"}}
                 };
             }

@@ -56,9 +56,9 @@ namespace Lectern2
 
             string tempBody = MessageBody;
 
-            if (tempBody.FirstOrDefault() == '/')
+            if (tempBody.Substring(0, LecternConfiguration.Instance.CommandPrefix.Length) == LecternConfiguration.Instance.CommandPrefix)
             {
-                tempBody = tempBody.Substring(1, tempBody.Length - 1);
+                tempBody = tempBody.Substring(LecternConfiguration.Instance.CommandPrefix.Length, tempBody.Length - LecternConfiguration.Instance.CommandPrefix.Length);
             }
 
             List<string> arguments = new List<string>();

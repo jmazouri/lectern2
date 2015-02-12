@@ -6,9 +6,9 @@ namespace Lectern2.Configuration
 {
     public class JsonConfiguration : IConfiguration
     {
-        [JsonIgnore]
+        [NonSerialized]
         public readonly string ConfigName;
-        [JsonIgnore]
+        [NonSerialized]
         public readonly string ConfigPath;
 
         protected JsonConfiguration()

@@ -21,5 +21,10 @@ namespace Lectern2.Configuration
 
             Load();
         }
+
+        public static LecternConfiguration Instance
+        {
+            get { return GlobalContainer.Container.GetExport<LecternConfiguration>().Value; }
+        }
     }
 }

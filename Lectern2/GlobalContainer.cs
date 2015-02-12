@@ -9,6 +9,7 @@ using System.Reflection;
 using Lectern2.Configuration;
 using Lectern2.Interfaces;
 using Lectern2.Plugins;
+using LoggingExtensions.Logging;
 
 namespace Lectern2
 {
@@ -20,6 +21,8 @@ namespace Lectern2
         }
 
         private static CompositionContainer _iocContainer;
+
+        
 
         public static CompositionContainer Container
         {
@@ -57,6 +60,7 @@ namespace Lectern2
                     if (assembly.FullName.ToLowerInvariant().Contains("lectern"))
                     {
                         assemblyCatalogs.Add(new AssemblyCatalog(assembly, registration));
+                        "GlobalContainer".Log().Info("Added assembly {0}", assembly.FullName);
                     }
                 }
 

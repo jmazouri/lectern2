@@ -9,7 +9,7 @@ namespace Lectern2Tests
         public void TestRecieveMessage()
         {
             Assert.NotNull(bridge);
-            bridge.RecieveMessage(new LecternMessage("Hello Test!"));
+            bridge.ReceiveMessage(new LecternMessage("Hello Test!"));
         }
     }
 }

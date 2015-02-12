@@ -7,6 +7,6 @@ namespace Lectern2.Interfaces
         IPluginManager PluginManager { get; set; }
         void Connect();
         void SendMessage(LecternMessage message);
-        void RecieveMessage(LecternMessage message);
+        void ReceiveMessage(LecternMessage message);
     }
 }

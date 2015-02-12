@@ -19,7 +19,7 @@ namespace Lectern2Console
 
             while (input != "quit")
             {
-                bridge.RecieveMessage(new LecternMessage(input));
+                bridge.ReceiveMessage(new LecternMessage(input));
                 input = Console.ReadLine();
             }
         }

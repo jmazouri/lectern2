@@ -1,27 +1,20 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using NLog;
 
 namespace Lectern2.Configuration
 {
-    public class ConfigurationHost
+    public class JsonConfiguration : IConfiguration
     {
-        private readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
         [JsonIgnore]
-        public string Name { get; set; }
-
+        public readonly string ConfigName;
         [JsonIgnore]
-        public string ConfigPath
-        {
-            get { return Path.Combine(Directory.GetCurrentDirectory(), Name + ".json"); }
-        }
+        public readonly string ConfigPath;
 
-        protected ConfigurationHost()
+        protected JsonConfiguration()
         {
-            Name = GetType().Name;
+            ConfigName = GetType().Name;
+            ConfigPath = Path.Combine(Directory.GetCurrentDirectory(), ConfigName + ".json");
         }
 
         /// <summary>
@@ -41,7 +34,7 @@ namespace Lectern2.Configuration
             }
             catch (Exception ex)
             {
-                Logger.Error("Couldn't load config file \"{0}\", exception: {1}", ConfigPath, ex);
+                this.Log().Error("Couldn't load config file \"{0}\", exception: {1}", ConfigPath, ex);
                 throw;
             }
         }
@@ -58,7 +51,7 @@ namespace Lectern2.Configuration
             }
             catch (Exception ex)
             {
-                Logger.Error("Couldn't save config file \"{0}\", exception: {1}", ConfigPath, ex);
+                this.Log().Error("Couldn't save config file \"{0}\", exception: {1}", ConfigPath, ex);
                 throw;
             }
             

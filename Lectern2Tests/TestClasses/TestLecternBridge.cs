@@ -25,7 +25,7 @@ namespace Lectern2Tests.TestClasses
             _logger.Info("Message was Sent: {0}", message.ToJson());
         }
 
-        public void RecieveMessage(LecternMessage message)
+        public void ReceiveMessage(LecternMessage message)
         {
             _logger.Info("Message was Recieved: {0}", message.ToJson());
         }

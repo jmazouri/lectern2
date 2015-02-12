@@ -11,8 +11,6 @@ namespace Lectern2
 {
     public class LecternMessage
     {
-        private Logger _logger = LogManager.GetCurrentClassLogger();
-
         private string _messageBody = null;
         public string MessageBody
         {
@@ -27,7 +25,7 @@ namespace Lectern2
             }
         }
 
-        private static Regex ArgumentRegex;
+        private static Regex _argumentRegex;
 
         public List<string> Arguments { get; set; }
 
@@ -36,16 +34,16 @@ namespace Lectern2
             MessageBody = message;
 
             //If for some reason the regex isn't compiled, just use the slow version
-            if (ArgumentRegex == null)
+            if (_argumentRegex == null)
             {
-                _logger.Warn("The regex for LecternMessages wasn't compiled! This will reduce performance.");
-                ArgumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*");
+                this.Log().Warn("The regex for LecternMessages wasn't compiled! This will reduce performance.");
+                _argumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*");
             }
         }
 
         public static void LoadRegex()
         {
-            ArgumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*", RegexOptions.Compiled);
+            _argumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*", RegexOptions.Compiled);
         }
 
         private void ParseArguments()
@@ -65,7 +63,7 @@ namespace Lectern2
 
             List<string> arguments = new List<string>();
 
-            for (var match = ArgumentRegex.Match(tempBody); match.Success; match = match.NextMatch())
+            for (var match = _argumentRegex.Match(tempBody); match.Success; match = match.NextMatch())
             {
                 arguments.Add(match.Value.Trim());
             }

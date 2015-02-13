@@ -12,9 +12,9 @@ namespace Lectern2Tests
 {
     public class BaseTest
     {
-        public ILecternBridge bridge { get; set; }
+        protected ILecternBridge bridge { get; set; }
 
-        public BaseTest()
+        protected BaseTest()
         {
             LecternMessage.LoadRegex();
             bridge = GlobalContainer.Container.GetExport<ILecternBridge>().Value;

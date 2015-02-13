@@ -65,11 +65,13 @@
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
     <Compile Include="LecternBridgeTests.cs" />
+    <Compile Include="LecternConfigurationTests.cs" />
     <Compile Include="LecternMessageTests.cs" />
     <Compile Include="LogExtensions.cs" />
     <Compile Include="PluginManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClasses\TestLecternBridge.cs" />
+    <Compile Include="TestClasses\TestLecternConfig.cs" />
     <Compile Include="TestClasses\TestLecternPlugin.cs" />
     <Compile Include="TestClasses\TestPluginManager.cs" />
   </ItemGroup>

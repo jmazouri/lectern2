@@ -32,7 +32,7 @@ namespace Lectern2
 
                 var registration = new RegistrationBuilder();
 
-                registration.ForType<LecternConfiguration>()
+                registration.ForTypesDerivedFrom<LecternConfiguration>()
                     .SelectConstructor(ctor=>ctor.FirstOrDefault(d=>d.IsPrivate))
                     .SetCreationPolicy(CreationPolicy.Shared)
                     .Export<LecternConfiguration>();

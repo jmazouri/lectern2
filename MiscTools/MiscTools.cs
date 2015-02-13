@@ -23,9 +23,11 @@ namespace MiscTools
                 systemInfo.Append("Lectern2 | ");
                 systemInfo.Append(String.Format("OS Version: {0} | ", Environment.OSVersion.VersionString));
                 systemInfo.Append(String.Format("Used Memory: {0:F}mb | ", (Process.GetCurrentProcess().PrivateMemorySize64 / 1000000)));
+
+                /*
                 systemInfo.Append(String.Format("Plugins Loaded: {0}", GlobalContainer.Container.GetExport<ILecternBridge>().Value.
                     PluginManager.LoadedPlugins.Select(d=>d.Name).Aggregate((cur, next) => cur + ", "+ next)));
-
+                */
                 return systemInfo.ToString();
             }
 

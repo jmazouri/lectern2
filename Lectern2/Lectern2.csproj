@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\IConfiguration.cs" />
+    <Compile Include="Mediator.cs" />
     <Compile Include="Interfaces\ILecternBridge.cs" />
     <Compile Include="Configuration\LecternConfiguration.cs" />
     <Compile Include="Configuration\JsonConfiguration.cs" />

@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace Lectern2.Configuration
 {
-    public class LecternConfiguration : JsonConfiguration
+    public class LecternConfiguration
     {
-        public HashSet<string> Plugins { get; internal set; }
-        public string BotName { get; internal set; }
-        public string CommandPrefix { get; internal set; }
+        public HashSet<string> Plugins { get; protected set; }
+        public string BotName { get; set; }
+        public string CommandPrefix { get; set; }
 
-        private LecternConfiguration()
+        public LecternConfiguration()
         {
             /*
              * You can set defaults here, they get overridden
@@ -18,13 +18,6 @@ namespace Lectern2.Configuration
             Plugins = new HashSet<string>();
             BotName = "Lectern";
             CommandPrefix = "!";
-
-            Load();
-        }
-
-        public static LecternConfiguration Instance
-        {
-            get { return GlobalContainer.Container.GetExport<LecternConfiguration>().Value; }
         }
     }
 }

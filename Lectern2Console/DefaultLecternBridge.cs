@@ -11,8 +11,6 @@ namespace Lectern2Console
 {
     public class DefaultLecternBridge : ILecternBridge
     {
-        public IPluginManager PluginManager { get; set; }
-
         public void Connect()
         {
             throw new NotImplementedException();
@@ -25,6 +23,7 @@ namespace Lectern2Console
 
         public void ReceiveMessage(LecternMessage message)
         {
+            /*
             foreach (ILecternPlugin plugin in PluginManager.LoadedPlugins)
             {
                 string ret = plugin.RecieveMessage(message);
@@ -37,6 +36,7 @@ namespace Lectern2Console
                 this.Log().Info("[{0}] {1}", plugin.Name, ret);
                 break;
             }
+            */
         }
     }
 }

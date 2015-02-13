@@ -12,8 +12,7 @@ namespace Lectern2Tests
         [MemberData("TestArgumentData")]
         public void TestArguments(string messagetext, List<string> expected )
         {
-            var message = new LecternMessage(messagetext);
-
+            var message = new LecternMessage(messagetext, new TestLecternConfig());
             Assert.Equal(expected, message.Arguments);
         }
 
@@ -21,7 +20,7 @@ namespace Lectern2Tests
         [MemberData("TestSerializationData")]
         public void TestSerialization(string messagetext, string expected)
         {
-            var message = new LecternMessage(messagetext);
+            var message = new LecternMessage(messagetext, new TestLecternConfig());
             Assert.Equal(expected, message.ToJson(false));
         }
 

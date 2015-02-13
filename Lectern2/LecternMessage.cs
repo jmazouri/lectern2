@@ -11,7 +11,10 @@ namespace Lectern2
 {
     public class LecternMessage
     {
+        private readonly LecternConfiguration _configuration;
+
         private string _messageBody = null;
+
         public string MessageBody
         {
             get
@@ -29,16 +32,18 @@ namespace Lectern2
 
         public List<string> Arguments { get; set; }
 
-        public LecternMessage(string message)
+        public LecternMessage(string message, LecternConfiguration config = null)
         {
-            MessageBody = message;
+            _configuration = config ?? JsonConfiguration.Load<LecternConfiguration>();
 
-            //If for some reason the regex isn't compiled, just use the slow version
+            //If for some reason the regex isn't compiled, do it
             if (_argumentRegex == null)
             {
-                this.Log().Warn("The regex for LecternMessages wasn't compiled! This will reduce performance.");
-                _argumentRegex = new Regex(@"(?<="")[^""]+(?="")|[^\s""]\S*");
+                this.Log().Warn("The regex for LecternMessages wasn't compiled! Doing it now, hold on...");
+                LoadRegex();
             }
+
+            MessageBody = message;
         }
 
         public static void LoadRegex()
@@ -48,6 +53,8 @@ namespace Lectern2
 
         private void ParseArguments()
         {
+            string prefix = _configuration.CommandPrefix;
+
             if (MessageBody == null)
             {
                 Arguments = new List<string>();
@@ -55,20 +62,20 @@ namespace Lectern2
             }
 
             string tempBody = MessageBody;
-
-            if (tempBody.Substring(0, LecternConfiguration.Instance.CommandPrefix.Length) == LecternConfiguration.Instance.CommandPrefix)
+            if (tempBody.Length >= prefix.Length)
             {
-                tempBody = tempBody.Substring(LecternConfiguration.Instance.CommandPrefix.Length, tempBody.Length - LecternConfiguration.Instance.CommandPrefix.Length);
+                if (tempBody.StartsWith(prefix))
+                {
+                    tempBody = tempBody.Substring(prefix.Length, tempBody.Length - prefix.Length);
+                }
             }
 
-            List<string> arguments = new List<string>();
+            Arguments.Clear();
 
             for (var match = _argumentRegex.Match(tempBody); match.Success; match = match.NextMatch())
             {
-                arguments.Add(match.Value.Trim());
+                Arguments.Add(match.Value.Trim());
             }
-
-            Arguments = arguments;
         }
 
         public string ToJson(bool indented = true)

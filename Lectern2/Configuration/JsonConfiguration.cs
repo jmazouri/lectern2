@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
+using System.Linq;
 using System.Management.Instrumentation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,6 +21,21 @@ namespace Lectern2.Configuration
         public static string GetPathForConfig<T>()
         {
             return GenerateConfigPath(typeof(T).Name);
+        }
+
+        public static void ForceClearCache()
+        {
+            objectCache.Clear();
+        }
+
+        public static void ForceClearCache<T>()
+        {
+            if (!objectCache.ContainsKey(typeof (T).Name))
+            {
+                return;
+            }
+
+            objectCache.Remove(typeof (T).Name);
         }
 
         /// <summary>

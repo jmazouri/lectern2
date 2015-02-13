@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Lectern2.Configuration;
@@ -11,14 +12,19 @@ namespace Lectern2Tests
 {
     public class LecternConfigurationTests
     {
-        [Fact]
-        public void TestConfigSections()
+        private void ClearTestFiles()
         {
             if (File.Exists(JsonConfiguration.GetPathForConfig<LecternConfiguration>()))
             {
                 File.Delete(JsonConfiguration.GetPathForConfig<LecternConfiguration>());
             }
 
+            JsonConfiguration.ForceClearCache();
+        }
+
+        [Fact]
+        public void TestConfigSections()
+        {
             LecternConfiguration test1Config = new LecternConfiguration()
             {
                 BotName = "Test 1 Bot",
@@ -43,7 +49,25 @@ namespace Lectern2Tests
             Assert.Equal(test2ConfigLoaded.BotName, test2Config.BotName);
             Assert.Equal(test2ConfigLoaded.CommandPrefix, test2Config.CommandPrefix);
 
-            
+            ClearTestFiles();
+        }
+
+        [Fact]
+        public void TestConfigSaving()
+        {
+            LecternConfiguration test1Config = new LecternConfiguration()
+            {
+                BotName = "Test 1 Bot",
+                CommandPrefix = "!"
+            };
+
+            JsonConfiguration.Save(test1Config, "test1");
+
+            Assert.True(File.Exists(JsonConfiguration.GetPathForConfig<LecternConfiguration>()));
+            string fileContent = File.ReadAllText(JsonConfiguration.GetPathForConfig<LecternConfiguration>());
+            Assert.Equal(fileContent, "{\"test1\":{\"Plugins\":[],\"BotName\":\"Test 1 Bot\",\"CommandPrefix\":\"!\"}}");
+
+            ClearTestFiles();
         }
         
     }

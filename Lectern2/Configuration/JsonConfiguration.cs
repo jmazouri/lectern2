@@ -51,7 +51,6 @@ namespace Lectern2.Configuration
                 if (!File.Exists(generatedPath))
                 {
                     Save<T>(null, section);
-                    Load<T>(section);
                 }
 
                 string jsonContent = File.ReadAllText(generatedPath);

@@ -16,26 +16,6 @@ namespace Lectern2Tests
             Assert.Equal(expected, message.Arguments);
         }
 
-        [Theory]
-        [MemberData("TestSerializationData")]
-        public void TestSerialization(string messagetext, string expected)
-        {
-            var message = new LecternMessage(messagetext, new TestLecternConfig());
-            Assert.Equal(expected, message.ToJson(false));
-        }
-
-        public static IEnumerable<object[]> TestSerializationData
-        {
-            get
-            {
-                return new[]
-                {
-                    new object[] { "/ln one two three", "{\"MessageBody\":\"/ln one two three\",\"Arguments\":[\"ln\",\"one\",\"two\",\"three\"]}" },
-                    new object[] { "/ln kick \"Offensive Name\"", "{\"MessageBody\":\"/ln kick \\\"Offensive Name\\\"\",\"Arguments\":[\"ln\",\"kick\",\"Offensive Name\"]}" },
-                };
-            }
-        }
-
         public static IEnumerable<object[]> TestArgumentData
         {
             get

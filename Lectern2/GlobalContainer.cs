@@ -13,6 +13,7 @@ using LoggingExtensions.Logging;
 
 namespace Lectern2
 {
+    //One lectern to rule them all, one lectern to find them. One lectern to bring them all and in the container bind them.
     public static class GlobalContainer
     {
         public static string PluginDirectory
@@ -21,8 +22,6 @@ namespace Lectern2
         }
 
         private static CompositionContainer _iocContainer;
-
-        
 
         public static CompositionContainer Container
         {

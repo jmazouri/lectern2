@@ -6,8 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lectern2", "Lectern2\Lectern2.csproj", "{E7C01514-7EB4-43AF-B872-686A46766899}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lectern2Tests", "Lectern2Tests\Lectern2Tests.csproj", "{E519AF54-22F0-4F6D-9759-B2000FDF675B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D3F93C7C-DEB9-4029-9C42-8B322B27CFEA} = {D3F93C7C-DEB9-4029-9C42-8B322B27CFEA}
+	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LecternPlugins", "LecternPlugins", "{B0272996-1FAF-4AEE-82E4-45865B41CCD0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{B0272996-1FAF-4AEE-82E4-45865B41CCD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiscTools", "MiscTools\MiscTools.csproj", "{D3F93C7C-DEB9-4029-9C42-8B322B27CFEA}"
 EndProject

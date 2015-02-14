@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
-using System.Linq;
-using System.Management.Instrumentation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -11,7 +8,7 @@ namespace Lectern2.Configuration
 {
     public static class JsonConfiguration
     {
-        private static Dictionary<string, JObject> objectCache = new Dictionary<string, JObject>(); 
+        private static readonly Dictionary<string, JObject> ObjectCache = new Dictionary<string, JObject>(); 
 
         private static string GenerateConfigPath(string partName)
         {
@@ -25,17 +22,12 @@ namespace Lectern2.Configuration
 
         public static void ForceClearCache()
         {
-            objectCache.Clear();
+            ObjectCache.Clear();
         }
 
         public static void ForceClearCache<T>()
         {
-            if (!objectCache.ContainsKey(typeof (T).Name))
-            {
-                return;
-            }
-
-            objectCache.Remove(typeof (T).Name);
+            ObjectCache.Remove(typeof (T).Name);
         }
 
         /// <summary>
@@ -51,27 +43,21 @@ namespace Lectern2.Configuration
                 if (!File.Exists(generatedPath))
                 {
                     Save<T>(null, section);
-                    Load<T>(section);
                 }
 
                 string jsonContent = File.ReadAllText(generatedPath);
                 var jo = JObject.Parse(jsonContent);
 
-                if (objectCache.ContainsKey(typeName))
+                if (ObjectCache.ContainsKey(typeName))
                 {
-                    objectCache[typeName] = jo;
+                    ObjectCache[typeName] = jo;
                 }
                 else
                 {
-                    objectCache.Add(typeName, jo);
+                    ObjectCache.Add(typeName, jo);
                 }
 
-                var selectedSectionData = jo[section];
-
-                if (selectedSectionData == null)
-                {
-                    selectedSectionData = jo["default"];
-                }
+                var selectedSectionData = jo[section] ?? jo["default"];
 
                 return selectedSectionData.ToObject<T>();
             }
@@ -93,11 +79,10 @@ namespace Lectern2.Configuration
 
             try
             {
-                string jsonContent = "";
-                JObject newJObject = new JObject();
+                var newJObject = new JObject();
 
                 JObject value;
-                if (objectCache.TryGetValue(typeName, out value))
+                if (ObjectCache.TryGetValue(typeName, out value))
                 {
                     JObject cur = value;
                     newJObject = cur;
@@ -108,7 +93,7 @@ namespace Lectern2.Configuration
                     newJObject[section] = JObject.FromObject(instance ?? new T());
                 }
 
-                jsonContent = JsonConvert.SerializeObject(newJObject);
+                string jsonContent = JsonConvert.SerializeObject(newJObject);
                 File.WriteAllText(generatedPath, jsonContent);
                 
             }

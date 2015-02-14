@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.Composition;
 using Lectern2.Configuration;
 
-namespace Lectern2Tests.TestClasses
+namespace Lectern2Tests.TestSuite.TestClasses
 {
+    [Export(typeof(LecternConfiguration))]
     public class TestLecternConfig : LecternConfiguration
     {
         public TestLecternConfig()

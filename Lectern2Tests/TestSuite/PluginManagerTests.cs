@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Lectern2.Interfaces;
 using Lectern2.Plugins;
-using Lectern2Tests.TestClasses;
 using Xunit;
 
-namespace Lectern2Tests
+namespace Lectern2Tests.TestSuite
 {
 
     public class PluginManagerTests : BaseTest
@@ -12,7 +11,7 @@ namespace Lectern2Tests
         [Fact]
         public void TestPluginLoading()
         {
-            DefaultPluginManager man = new DefaultPluginManager();
+            var man = new DefaultPluginManager();
             Assert.True(man.LoadedPlugins.Any(), "No plugins were found.");
             Assert.True(man.LoadedPlugins.Any(d => d.Name == "MiscTools"), "The default MiscTools plugin wasn't found.");
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Lectern2.Interfaces;
-using Lectern2.Plugins;
 
-namespace Lectern2Tests.TestClasses
+namespace Lectern2Tests.TestSuite.TestClasses
 {
+    // ReSharper disable once UnusedMember.Global
     public class TestPluginManager : IPluginManager
     {
         public TestPluginManager()

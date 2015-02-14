@@ -1,4 +1,6 @@
-﻿namespace Lectern2.Interfaces
+﻿using Lectern2.Messages;
+
+namespace Lectern2.Interfaces
 {
     public interface ILecternPlugin
     {
@@ -6,6 +8,6 @@
         string Name { get; }
         void Load();
         void Unload();
-        string RecieveMessage(LecternMessage message);
+        string ReceiveMessage(LecternMessage message);
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Lectern2.Interfaces;
 
-namespace Lectern2
+namespace Lectern2.Core
 {
     public class Mediator
     {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Lectern2.Configuration;
-using Lectern2.Interfaces;
-using Newtonsoft.Json;
-using NLog;
 
-namespace Lectern2
+namespace Lectern2.Messages
 {
     public class LecternMessage
     {
@@ -30,7 +25,7 @@ namespace Lectern2
 
         private static Regex _argumentRegex;
 
-        public List<string> Arguments { get; set; }
+        public readonly List<string> Arguments = new List<string>();
 
         public LecternMessage(string message, LecternConfiguration config = null)
         {
@@ -53,15 +48,13 @@ namespace Lectern2
 
         private void ParseArguments()
         {
+            Arguments.Clear();
+
+            if (MessageBody == null) return;
+
             string prefix = _configuration.CommandPrefix;
-
-            if (MessageBody == null)
-            {
-                Arguments = new List<string>();
-                return;
-            }
-
             string tempBody = MessageBody;
+
             if (tempBody.Length >= prefix.Length)
             {
                 if (tempBody.StartsWith(prefix))
@@ -70,17 +63,11 @@ namespace Lectern2
                 }
             }
 
-            Arguments.Clear();
 
             for (var match = _argumentRegex.Match(tempBody); match.Success; match = match.NextMatch())
             {
                 Arguments.Add(match.Value.Trim());
             }
-        }
-
-        public string ToJson(bool indented = true)
-        {
-            return JsonConvert.SerializeObject(this, (indented ? Formatting.Indented : Formatting.None));
         }
     }
 }

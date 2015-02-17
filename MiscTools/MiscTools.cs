@@ -2,8 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Lectern2;
-using Lectern2.Interfaces;
+using Lectern2.Messages;
 using Lectern2.Plugins;
 
 namespace MiscTools
@@ -15,7 +14,7 @@ namespace MiscTools
             logger.Info("Hello from MiscTools!");
         }
 
-        public override string RecieveMessage(LecternMessage message)
+        public override string ReceiveMessage(LecternMessage message)
         {
             if (message.Arguments.FirstOrDefault() == "info")
             {

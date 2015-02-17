@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Lectern2.Core;
 using Lectern2.Interfaces;
 
 namespace Lectern2.Plugins

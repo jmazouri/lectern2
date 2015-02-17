@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.Composition;
-using Lectern2.Interfaces;
+﻿using Lectern2.Interfaces;
+using Lectern2.Messages;
 using NLog;
 
 namespace Lectern2.Plugins
@@ -27,7 +27,7 @@ namespace Lectern2.Plugins
             logger.Info("Plugin {0} was unloaded.", Name);
         }
 
-        public abstract string RecieveMessage(LecternMessage message);
+        public abstract string ReceiveMessage(LecternMessage message);
 
     }
 }

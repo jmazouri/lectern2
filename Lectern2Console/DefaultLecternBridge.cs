@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lectern2;
 using Lectern2.Interfaces;
-using NLog;
+using Lectern2.Messages;
 
 namespace Lectern2Console
 {
@@ -26,7 +21,7 @@ namespace Lectern2Console
             /*
             foreach (ILecternPlugin plugin in PluginManager.LoadedPlugins)
             {
-                string ret = plugin.RecieveMessage(message);
+                string ret = plugin.ReceiveMessage(message);
 
                 if (ret == null)
                 {

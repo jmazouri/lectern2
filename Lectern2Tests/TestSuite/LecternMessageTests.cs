@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Lectern2;
-using Lectern2Tests.TestClasses;
+using Lectern2.Messages;
+using Lectern2Tests.TestSuite.TestClasses;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Lectern2Tests
+namespace Lectern2Tests.TestSuite
 {
     public class LecternMessageTests : BaseTest
     {
@@ -16,6 +15,10 @@ namespace Lectern2Tests
             Assert.Equal(expected, message.Arguments);
         }
 
+<<<<<<< HEAD:Lectern2Tests/LecternMessageTests.cs
+=======
+        // ReSharper disable once UnusedMember.Global
+>>>>>>> origin/dev:Lectern2Tests/TestSuite/LecternMessageTests.cs
         public static IEnumerable<object[]> TestArgumentData
         {
             get

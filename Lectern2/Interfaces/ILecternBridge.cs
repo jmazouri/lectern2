@@ -1,4 +1,4 @@
-﻿using Lectern2.Configuration;
+﻿using Lectern2.Messages;
 
 namespace Lectern2.Interfaces
 {

@@ -15,10 +15,7 @@ namespace Lectern2Tests.TestSuite
             Assert.Equal(expected, message.Arguments);
         }
 
-<<<<<<< HEAD:Lectern2Tests/LecternMessageTests.cs
-=======
         // ReSharper disable once UnusedMember.Global
->>>>>>> origin/dev:Lectern2Tests/TestSuite/LecternMessageTests.cs
         public static IEnumerable<object[]> TestArgumentData
         {
             get

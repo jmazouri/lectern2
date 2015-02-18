@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using Lectern2.Interfaces;
 using Lectern2.Messages;
+using Lectern2.Plugins;
 
 namespace Lectern2.Core
 {
     public static class Mediator
     {
-        private static List<ILecternBridge> _registeredBridges = new List<ILecternBridge>();
-        public static IPluginManager PluginManager { get; private set; }
+        private static List<LecternBridge> _registeredBridges = new List<LecternBridge>();
+        private static IPluginManager PluginManager = new DefaultPluginManager();
 
-        public static void RecieveMessage(ILecternBridge bridge, LecternMessage message)
+        public static void RecieveMessage(LecternBridge bridge, LecternMessage message)
         {
-            foreach (ILecternPlugin plugin in PluginManager.LoadedPlugins)
+            foreach (var plugin in PluginManager.LoadedPlugins)
             {
-                
+                plugin.ReceiveMessage(bridge, message);
             }
+        }
+
+        public static void SendMessage(LecternBridge bridge, LecternMessage message)
+        {
+            bridge.SendMessage(message);
         }
     }
 }

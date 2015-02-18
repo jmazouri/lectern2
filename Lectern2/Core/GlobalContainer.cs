@@ -45,22 +45,21 @@ namespace Lectern2.Core
                     .Export<IPluginManager>();*/
 
                 var bridgeRegistration = new RegistrationBuilder();
-                bridgeRegistration.ForTypesDerivedFrom<ILecternBridge>()
-                    .SetCreationPolicy(CreationPolicy.Shared)
-                    .Export<ILecternBridge>()
-                    .ImportProperties(d => d.PropertyType.IsAssignableFrom(typeof(LecternConfiguration)) | d.PropertyType.IsAssignableFrom(typeof(IPluginManager)));
+                bridgeRegistration.ForTypesDerivedFrom<LecternBridge>()
+                    .Export<LecternBridge>()
+                    .SetCreationPolicy(CreationPolicy.Shared);
 
                 var pluginRegistration = new RegistrationBuilder();
                 pluginRegistration.ForTypesDerivedFrom<ILecternPlugin>()
                     .SetCreationPolicy(CreationPolicy.Shared)
-                    .Export<ILecternPlugin>()
-                    .ImportProperties(d => d.PropertyType.IsAssignableFrom(typeof(ILecternBridge)));
+                    .Export<ILecternPlugin>();
 
                 var assemblyCatalogs = new List<ComposablePartCatalog>
                 {
                     new DirectoryCatalog(ConfigDirectory, configRegistration),
                     new DirectoryCatalog(BridgeDirectory, bridgeRegistration),
-                    new DirectoryCatalog(PluginDirectory, pluginRegistration)
+                    new DirectoryCatalog(PluginDirectory, pluginRegistration),
+                    new AssemblyCatalog(Assembly.GetEntryAssembly(), bridgeRegistration)
                 };
 
                 assemblyCatalogs.AddRange(AdditionalAssemblies);

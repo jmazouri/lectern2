@@ -1,37 +1,21 @@
 ﻿using System;
+using Lectern2.Core;
 using Lectern2.Interfaces;
 using Lectern2.Messages;
+using Lectern2.Util;
 
 namespace Lectern2Console
 {
-    public class DefaultLecternBridge : ILecternBridge
+    public class DefaultLecternBridge : LecternBridge
     {
-        public void Connect()
+        public override void Connect()
         {
-            throw new NotImplementedException();
+            this.Log().Info("Default Lectern Bridge loaded.");
         }
 
-        public void SendMessage(LecternMessage message)
+        public override void SendMessage(LecternMessage message)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ReceiveMessage(LecternMessage message)
-        {
-            /*
-            foreach (ILecternPlugin plugin in PluginManager.LoadedPlugins)
-            {
-                string ret = plugin.ReceiveMessage(message);
-
-                if (ret == null)
-                {
-                    continue;
-                }
-
-                this.Log().Info("[{0}] {1}", plugin.Name, ret);
-                break;
-            }
-            */
+            this.Log().Info("Message was sent via default bridge: {0}", message.MessageBody);
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Lectern2;
+using Lectern2.Core;
 using Lectern2.Messages;
 using Lectern2.Plugins;
 
@@ -11,10 +13,10 @@ namespace MiscTools
     {
         public override void Load()
         {
-            logger.Info("Hello from MiscTools!");
+            this.Log().Info("Hello from MiscTools!");
         }
 
-        public override string ReceiveMessage(LecternMessage message)
+        public override void ReceiveMessage(LecternBridge bridge, LecternMessage message)
         {
             if (message.Arguments.FirstOrDefault() == "info")
             {
@@ -27,10 +29,9 @@ namespace MiscTools
                 systemInfo.Append(String.Format("Plugins Loaded: {0}", GlobalContainer.Container.GetExport<ILecternBridge>().Value.
                     PluginManager.LoadedPlugins.Select(d=>d.Name).Aggregate((cur, next) => cur + ", "+ next)));
                 */
-                return systemInfo.ToString();
-            }
 
-            return null;
+                Mediator.SendMessage(bridge, new LecternMessage(systemInfo.ToString()));
+            }
         }
     }
 }

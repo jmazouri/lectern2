@@ -1,13 +1,13 @@
-﻿using Lectern2.Messages;
+﻿using Lectern2.Core;
+using Lectern2.Messages;
 
 namespace Lectern2.Interfaces
 {
     public interface ILecternPlugin
     {
-        ILecternBridge Bridge { get; set; }
         string Name { get; }
         void Load();
         void Unload();
-        string ReceiveMessage(LecternMessage message);
+        void ReceiveMessage(LecternBridge bridge, LecternMessage message);
     }
 }

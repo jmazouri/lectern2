@@ -20,9 +20,10 @@ namespace Lectern2Tests.TestSuite
             var container = GlobalContainer.Container;
             
             var stringBuilder = new StringBuilder()
-                .AppendLine("Loaded Test Bridges:")
+                .AppendLine()
+                .AppendLine("Loaded Test Bridges: ")
                 .AppendLine(PrintExportNames(container.GetExports<ILecternBridge>()))
-                .AppendLine("Loaded Test Plugins:")
+                .AppendLine("Loaded Test Plugins: ")
                 .AppendLine(PrintExportNames(container.GetExports<ILecternPlugin>()));
             
             this.Log().Debug(stringBuilder.ToString);
@@ -35,7 +36,7 @@ namespace Lectern2Tests.TestSuite
             {
                 exportTypeSet.Push(exportLazy.Value.GetType());
             }
-            return JsonUtil.ToJson(exportTypeSet);
+            return JsonUtil.ToJson(exportTypeSet, false);
         }
     }
 

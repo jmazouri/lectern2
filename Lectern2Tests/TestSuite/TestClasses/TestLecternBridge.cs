@@ -21,12 +21,12 @@ namespace Lectern2Tests.TestSuite.TestClasses
 
         public void SendMessage(LecternMessage message)
         {
-            _logger.Info("Message was Sent: {0}", JsonUtil.ToJson(message));
+            _logger.Info("Message was Sent: {0}", JsonUtil.ToJson(message, false));
         }
 
         public void ReceiveMessage(LecternMessage message)
         {
-            _logger.Info("Message was Received: {0}", JsonUtil.ToJson(message));
+            _logger.Info("Message was Received: {0}", JsonUtil.ToJson(message, false));
         }
     }
 }

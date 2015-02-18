@@ -68,7 +68,6 @@ namespace Lectern2.Configuration
             }
         }
 
-
         /// <summary>
         /// Saves the current configuration to the associated file.
         /// </summary>

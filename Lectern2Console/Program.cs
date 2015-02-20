@@ -17,8 +17,6 @@ namespace Lectern2Console
             LecternMessage.LoadRegex();
             string input = Console.ReadLine();
 
-            JsonConfiguration.Save<LecternConfiguration>(null);
-
             while (input != "quit")
             {
                 Mediator.RecieveMessage(bridge, new LecternMessage(input));

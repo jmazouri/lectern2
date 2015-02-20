@@ -30,7 +30,7 @@ namespace MiscTools
                     PluginManager.LoadedPlugins.Select(d=>d.Name).Aggregate((cur, next) => cur + ", "+ next)));
                 */
 
-                Mediator.SendMessage(bridge, new LecternMessage(systemInfo.ToString()));
+                bridge.SendMessage(new LecternMessage(systemInfo.ToString()));
             }
         }
     }

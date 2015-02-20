@@ -4,7 +4,7 @@ using Lectern2.Interfaces;
 using Lectern2.Messages;
 using Lectern2.Util;
 
-namespace Lectern2Console
+namespace Lectern2.Bridges
 {
     public class DefaultLecternBridge : LecternBridge
     {

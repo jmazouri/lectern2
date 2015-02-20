@@ -10,7 +10,7 @@ namespace Lectern2.Core
     public static class Mediator
     {
         private static List<LecternBridge> _registeredBridges = new List<LecternBridge>();
-        private static IPluginManager PluginManager = new DefaultPluginManager();
+        private static readonly IPluginManager PluginManager = new DefaultPluginManager();
 
         public static void RecieveMessage(LecternBridge bridge, LecternMessage message)
         {
@@ -18,11 +18,6 @@ namespace Lectern2.Core
             {
                 plugin.ReceiveMessage(bridge, message);
             }
-        }
-
-        public static void SendMessage(LecternBridge bridge, LecternMessage message)
-        {
-            bridge.SendMessage(message);
         }
     }
 }

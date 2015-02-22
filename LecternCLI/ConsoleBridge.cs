@@ -47,7 +47,7 @@ namespace LecternCLI
         {
             var message = new LecternMessage(input, Program.ConsoleLectern.Configuration);
             CallEvent(new Events.ReceiveMessage(this, message));
-            return !message.IsCommand() || message.Command != "quit";
+            return !message.IsCommand || message.Command != "quit";
         }
     }
 }

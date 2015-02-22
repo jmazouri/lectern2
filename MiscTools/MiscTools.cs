@@ -11,7 +11,7 @@ namespace MiscTools
     {
         protected override void ReceiveMessage(LecternMessage message)
         {
-            if (!message.IsCommand() || message.Command != "info") return;
+            if (!message.IsCommand || message.Command != "info") return;
 
             var systemInfo = new StringBuilder();
                 systemInfo.Append("Lectern2 | ");

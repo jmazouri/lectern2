@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Lectern2.Configuration
 {
-    public static class JsonConfiguration
+    public static class JsonConfigParser
     {
         private static readonly Dictionary<string, JObject> ObjectCache = new Dictionary<string, JObject>(); 
 
@@ -63,7 +63,7 @@ namespace Lectern2.Configuration
             }
             catch (Exception ex)
             {
-                "JsonConfiguration".Log().Error("Couldn't load config file \"{0}\", section {1}. Exception: {2}", generatedPath, section, ex);
+                "JsonConfigParser".Log().Error("Couldn't load config file \"{0}\", section {1}. Exception: {2}", generatedPath, section, ex);
                 throw;
             }
         }
@@ -98,7 +98,7 @@ namespace Lectern2.Configuration
             }
             catch (Exception ex)
             {
-                "JsonConfiguration".Log().Error("Couldn't save config file \"{0}\", section {1}. Exception: {2}", generatedPath, section, ex);
+                "JsonConfigParser".Log().Error("Couldn't save config file \"{0}\", section {1}. Exception: {2}", generatedPath, section, ex);
                 throw;
             }
             

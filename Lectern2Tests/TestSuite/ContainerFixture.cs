@@ -4,6 +4,7 @@ using System.Text;
 using Lectern2.Core;
 using Lectern2.Interfaces;
 using Lectern2.Util;
+using Lectern2Tests.TestSuite.TestClasses;
 using LoggingExtensions.Logging;
 using LoggingExtensions.NLog;
 using Xunit;
@@ -12,10 +13,16 @@ namespace Lectern2Tests.TestSuite
 {
     public class ContainerFixture
     {
+        public Lectern TestLectern;
+
         public ContainerFixture()
         {
             Log.InitializeWith<NLogLog>();
-            GlobalContainer.AddPreemptiveAssembly(GetType().Assembly);
+
+            TestLectern = new Lectern(
+                new TestLecternConfig(),
+                new HashSet<ILecternBridge> {new TestLecternBridge()},
+                new HashSet<ILecternPlugin> {new TestLecternPlugin()});
 
             var container = GlobalContainer.Container;
             

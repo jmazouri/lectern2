@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Lectern2.Configuration;
 
@@ -6,9 +7,17 @@ namespace Lectern2.Messages
 {
     public class LecternMessage
     {
+        public enum Scope
+        {
+            Log,
+            System,
+            Error,
+            Chat
+        }
+
         private readonly LecternConfiguration _configuration;
 
-        private string _messageBody = null;
+        private string _messageBody;
 
         public string MessageBody
         {
@@ -23,13 +32,15 @@ namespace Lectern2.Messages
             }
         }
 
+        public Scope MessageScope { get; private set; }
+
         private static Regex _argumentRegex;
 
         public readonly List<string> Arguments = new List<string>();
 
-        public LecternMessage(string message, LecternConfiguration config = null)
+        public LecternMessage(string message, LecternConfiguration config = null, Scope scope = Scope.Chat)
         {
-            _configuration = config ?? JsonConfiguration.Load<LecternConfiguration>();
+            _configuration = config ?? JsonConfigParser.Load<LecternConfiguration>();
 
             //If for some reason the regex isn't compiled, do it
             if (_argumentRegex == null)
@@ -39,6 +50,7 @@ namespace Lectern2.Messages
             }
 
             MessageBody = message;
+            MessageScope = scope;
         }
 
         public static void LoadRegex()
@@ -68,6 +80,11 @@ namespace Lectern2.Messages
             {
                 Arguments.Add(match.Value.Trim());
             }
+        }
+
+        public static implicit operator LecternMessage(string input)
+        {
+            return new LecternMessage(input);
         }
     }
 }

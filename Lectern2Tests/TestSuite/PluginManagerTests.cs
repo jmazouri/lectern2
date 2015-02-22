@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Lectern2.Core;
 using Lectern2.Interfaces;
 using Lectern2.Plugins;
 using Xunit;
@@ -8,19 +9,17 @@ namespace Lectern2Tests.TestSuite
 
     public class PluginManagerTests : BaseTest
     {
-        [Fact]
-        public void TestPluginLoading()
+        private readonly Lectern _lectern;
+        public PluginManagerTests(ContainerFixture fixture)
         {
-            var man = new DefaultPluginManager();
-            Assert.True(man.LoadedPlugins.Any(), "No plugins were found.");
-            Assert.True(man.LoadedPlugins.Any(d => d.Name == "MiscTools"), "The default MiscTools plugin wasn't found.");
-
-            foreach (ILecternPlugin plugin in man.LoadedPlugins)
-            {
-                plugin.Load();
-            }
+            _lectern = fixture.TestLectern;
         }
 
-        
+        [Fact]
+        public void TestAssemblyLoading()
+        {
+            Assert.True(_lectern.Mediator.NetworkSystem.Plugins.Any(), "No plugins were found.");
+            Assert.True(_lectern.Mediator.NetworkSystem.Plugins.Any(d => d.Name == "MiscTools"), "The MiscTools plugin wasn't found.");
+        }
     }
 }

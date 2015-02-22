@@ -77,7 +77,6 @@
     <Compile Include="TestSuite\TestClasses\TestLecternBridge.cs" />
     <Compile Include="TestSuite\TestClasses\TestLecternConfig.cs" />
     <Compile Include="TestSuite\TestClasses\TestLecternPlugin.cs" />
-    <Compile Include="TestSuite\TestClasses\TestPluginManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".xunit" />

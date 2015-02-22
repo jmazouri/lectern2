@@ -8,13 +8,9 @@ namespace Lectern2Tests.TestSuite
     [Collection("LecternTestSuite")]
     public class BaseTest
     {
-        protected LecternBridge Bridge { get; private set; }
-
         protected BaseTest()
         {
             LecternMessage.LoadRegex();
-            // ReSharper disable once PossibleNullReferenceException
-            Bridge = GlobalContainer.Container.GetExport<LecternBridge>().Value;
         }
     }
 }

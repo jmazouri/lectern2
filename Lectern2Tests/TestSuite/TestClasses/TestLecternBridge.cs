@@ -8,21 +8,39 @@ using NLog;
 namespace Lectern2Tests.TestSuite.TestClasses
 {
     // ReSharper disable once UnusedMember.Global
-    [Export(typeof(LecternBridge))]
-    public class TestLecternBridge : LecternBridge
+    [Export(typeof(ILecternBridge))]
+    public class TestLecternBridge : ILecternBridge
     {
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public IPluginManager PluginManager { get; set; }
+        public Network Network { get; private set; }
 
-        public override void Connect()
+        public string Name { get { return "TestBridge"; } }
+
+        public TestLecternBridge()
+        {
+            this.Log().Info("Test Bridge created with null values");
+        }
+
+        public bool Load(Network network)
+        {
+            Network = network;
+            return true;
+        }
+
+        public void Connect()
         {
             _logger.Info("TestBridge Connected");
         }
 
-        public override void SendMessage(LecternMessage message)
+        public void SendMessage(INetworkObject networkObject, LecternMessage message)
         {
-            _logger.Info("Message was Sent: {0}", JsonUtil.ToJson(message, false));
+            _logger.Info("Message was Sent: {0}", JsonUtil.ToJson(message));
+        }
+
+        public void ReceiveMessage(LecternMessage message)
+        {
+            _logger.Info("Message was Received: {0}", JsonUtil.ToJson(message));
         }
     }
 }

@@ -16,11 +16,11 @@
 // specific language governing permissions and limitations under the License.
 // ==============================================================================
 
+using System.Collections.Concurrent;
+using LoggingExtensions.Logging;
+
 namespace Lectern2
 {
-    using System.Collections.Concurrent;
-    using LoggingExtensions.Logging;
-
     /// <summary>
     /// Extensions to help make logging awesome - this should be installed into the root namespace of your application
     /// </summary>

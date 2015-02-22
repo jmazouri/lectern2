@@ -68,18 +68,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\APIVersionAttribute.cs" />
+    <Compile Include="Core\Events.cs" />
     <Compile Include="Core\Lectern.cs" />
     <Compile Include="Core\Mediator.cs" />
-    <Compile Include="Core\LecternBridge.cs" />
+    <Compile Include="Core\Network.cs" />
+    <Compile Include="Interfaces\ILecternBridge.cs" />
     <Compile Include="Configuration\LecternConfiguration.cs" />
-    <Compile Include="Configuration\JsonConfiguration.cs" />
+    <Compile Include="Configuration\JsonConfigParser.cs" />
     <Compile Include="Core\GlobalContainer.cs" />
     <Compile Include="Interfaces\ILecternPlugin.cs" />
+    <Compile Include="Interfaces\INetworkObject.cs" />
     <Compile Include="Messages\LecternMessage.cs" />
-    <Compile Include="Interfaces\IPluginManager.cs" />
     <Compile Include="LogExtensions.cs" />
-    <Compile Include="Plugins\DefaultPluginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\SimpleLecternPlugin.cs" />
     <Compile Include="Util\JsonUtil.cs" />

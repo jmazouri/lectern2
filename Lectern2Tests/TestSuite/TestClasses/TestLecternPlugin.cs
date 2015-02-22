@@ -10,9 +10,15 @@ namespace Lectern2Tests.TestSuite.TestClasses
     [Export(typeof(ILecternPlugin))]
     public class TestLecternPlugin : SimpleLecternPlugin
     {
-        public override void ReceiveMessage(LecternBridge bridge, LecternMessage message)
+        public TestLecternPlugin()
         {
-            this.Log().Info("Message was recieved by plugin {0}: {1}", Name, JsonUtil.ToJson(message, false));
+            Name = "TestPlugin";
+        }
+
+        protected override void ReceiveMessage(LecternMessage message)
+        {
+            this.Log().Info("Message was Received by plugin {0}: {1}", Name, JsonUtil.ToJson(message, false));
+            SendMessage(new LecternMessage("It works."));
         }
     }
 }

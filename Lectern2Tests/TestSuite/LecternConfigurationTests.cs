@@ -8,12 +8,12 @@ namespace Lectern2Tests.TestSuite
     {
         private static void ClearTestFiles()
         {
-            if (File.Exists(JsonConfiguration.GetPathForConfig<LecternConfiguration>()))
+            if (File.Exists(JsonConfigParser.GetPathForConfig<LecternConfiguration>()))
             {
-                File.Delete(JsonConfiguration.GetPathForConfig<LecternConfiguration>());
+                File.Delete(JsonConfigParser.GetPathForConfig<LecternConfiguration>());
             }
 
-            JsonConfiguration.ForceClearCache();
+            JsonConfigParser.ForceClearCache();
         }
 
         [Fact]
@@ -25,9 +25,9 @@ namespace Lectern2Tests.TestSuite
                 CommandPrefix = "!"
             };
 
-            JsonConfiguration.Save(test1Config, "test1");
+            JsonConfigParser.Save(test1Config, "test1");
 
-            var test1ConfigLoaded = JsonConfiguration.Load<LecternConfiguration>("test1");
+            var test1ConfigLoaded = JsonConfigParser.Load<LecternConfiguration>("test1");
             Assert.Equal(test1ConfigLoaded.BotName, test1Config.BotName);
             Assert.Equal(test1ConfigLoaded.CommandPrefix, test1Config.CommandPrefix);
 
@@ -37,9 +37,9 @@ namespace Lectern2Tests.TestSuite
                 CommandPrefix = "#"
             };
 
-            JsonConfiguration.Save(test2Config);
+            JsonConfigParser.Save(test2Config);
 
-            var test2ConfigLoaded = JsonConfiguration.Load<LecternConfiguration>();
+            var test2ConfigLoaded = JsonConfigParser.Load<LecternConfiguration>();
             Assert.Equal(test2ConfigLoaded.BotName, test2Config.BotName);
             Assert.Equal(test2ConfigLoaded.CommandPrefix, test2Config.CommandPrefix);
 
@@ -55,10 +55,10 @@ namespace Lectern2Tests.TestSuite
                 CommandPrefix = "!"
             };
 
-            JsonConfiguration.Save(test1Config, "test1");
+            JsonConfigParser.Save(test1Config, "test1");
 
-            Assert.True(File.Exists(JsonConfiguration.GetPathForConfig<LecternConfiguration>()));
-            var fileContent = File.ReadAllText(JsonConfiguration.GetPathForConfig<LecternConfiguration>());
+            Assert.True(File.Exists(JsonConfigParser.GetPathForConfig<LecternConfiguration>()));
+            var fileContent = File.ReadAllText(JsonConfigParser.GetPathForConfig<LecternConfiguration>());
             Assert.Equal(fileContent, "{\"test1\":{\"Plugins\":[],\"BotName\":\"Test 1 Bot\",\"CommandPrefix\":\"!\"}}");
 
             ClearTestFiles();

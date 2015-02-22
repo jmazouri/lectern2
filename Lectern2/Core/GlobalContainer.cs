@@ -19,8 +19,6 @@ namespace Lectern2.Core
         private static readonly string ConfigDirectory = Path.Combine(Base, @"Lectern\Config");
         private static readonly string BridgeDirectory = Path.Combine(Base, @"Lectern\Bridges");
 
-        private static readonly List<ComposablePartCatalog> AdditionalAssemblies = new List<ComposablePartCatalog>();
-
         private static CompositionContainer _iocContainer;
 
         public static CompositionContainer Container
@@ -39,15 +37,10 @@ namespace Lectern2.Core
                     .SetCreationPolicy(CreationPolicy.Shared)
                     .Export<LecternConfiguration>();
 
-                /*var managerRegistration = new RegistrationBuilder();
-                managerRegistration.ForType<DefaultPluginManager>()
-                    .SetCreationPolicy(CreationPolicy.Shared)
-                    .Export<IPluginManager>();*/
-
                 var bridgeRegistration = new RegistrationBuilder();
-                bridgeRegistration.ForTypesDerivedFrom<LecternBridge>()
-                    .Export<LecternBridge>()
-                    .SetCreationPolicy(CreationPolicy.Shared);
+                bridgeRegistration.ForTypesDerivedFrom<ILecternBridge>()
+                    .SetCreationPolicy(CreationPolicy.Shared)
+                    .Export<ILecternBridge>();
 
                 var pluginRegistration = new RegistrationBuilder();
                 pluginRegistration.ForTypesDerivedFrom<ILecternPlugin>()
@@ -58,11 +51,8 @@ namespace Lectern2.Core
                 {
                     new DirectoryCatalog(ConfigDirectory, configRegistration),
                     new DirectoryCatalog(BridgeDirectory, bridgeRegistration),
-                    new DirectoryCatalog(PluginDirectory, pluginRegistration),
-                    new AssemblyCatalog(Assembly.GetEntryAssembly(), bridgeRegistration)
+                    new DirectoryCatalog(PluginDirectory, pluginRegistration)
                 };
-
-                assemblyCatalogs.AddRange(AdditionalAssemblies);
 
                 var aggregateCatalog = new AggregateCatalog(assemblyCatalogs);
 
@@ -71,25 +61,6 @@ namespace Lectern2.Core
 
                 return _iocContainer;
             }
-        }
-
-        internal static void AddPreemptiveAssembly(Assembly asm)
-        {
-            if (_iocContainer != null)
-            {
-                throw new InvalidOperationException(
-                    "The global container is already initialized and assemblies can not be preemptively added in this state.");
-            }
-            AdditionalAssemblies.Add(new AssemblyCatalog(asm));
-        }
-
-        internal static void DestroyContainer()
-        {
-            if (_iocContainer != null)
-            {
-                _iocContainer.Dispose();
-            }
-            _iocContainer = null;
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Lectern2;
 using Lectern2.Core;
 using Lectern2.Messages;
 using Lectern2.Plugins;
@@ -11,27 +10,15 @@ namespace MiscTools
 {
     public class MiscTools : SimpleLecternPlugin
     {
-        public override void Load()
+        protected override void ReceiveMessage(LecternMessage message)
         {
-            this.Log().Info("Hello from MiscTools!");
-        }
+            if (message.Arguments.FirstOrDefault() != "info") return;
 
-        public override void ReceiveMessage(LecternBridge bridge, LecternMessage message)
-        {
-            if (message.Arguments.FirstOrDefault() == "info")
-            {
-                StringBuilder systemInfo = new StringBuilder();
+            var systemInfo = new StringBuilder();
                 systemInfo.Append("Lectern2 | ");
                 systemInfo.Append(String.Format("OS Version: {0} | ", Environment.OSVersion.VersionString));
                 systemInfo.Append(String.Format("Used Memory: {0:F}mb | ", (Process.GetCurrentProcess().PrivateMemorySize64 / 1000000)));
-
-                /*
-                systemInfo.Append(String.Format("Plugins Loaded: {0}", GlobalContainer.Container.GetExport<ILecternBridge>().Value.
-                    PluginManager.LoadedPlugins.Select(d=>d.Name).Aggregate((cur, next) => cur + ", "+ next)));
-                */
-
-                bridge.SendMessage(new LecternMessage(systemInfo.ToString()));
-            }
+            SendMessage(systemInfo.ToString());
         }
     }
 }

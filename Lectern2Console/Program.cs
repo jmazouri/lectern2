@@ -13,13 +13,11 @@ namespace Lectern2Console
         static void Main(string[] args)
         {
             Log.InitializeWith<NLogLog>();
-            LecternBridge bridge = GlobalContainer.Container.GetExport<LecternBridge>().Value;
             LecternMessage.LoadRegex();
             string input = Console.ReadLine();
 
             while (input != "quit")
             {
-                Mediator.RecieveMessage(bridge, new LecternMessage(input));
                 input = Console.ReadLine();
             }
         }

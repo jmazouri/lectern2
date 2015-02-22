@@ -1,5 +1,4 @@
-﻿using Lectern2.Core;
-using Lectern2.Messages;
+﻿using Lectern2.Messages;
 
 namespace Lectern2.Interfaces
 {

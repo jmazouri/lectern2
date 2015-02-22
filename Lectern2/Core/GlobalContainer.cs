@@ -6,7 +6,6 @@ using System.ComponentModel.Composition.Primitives;
 using System.ComponentModel.Composition.Registration;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Lectern2.Configuration;
 using Lectern2.Interfaces;
 

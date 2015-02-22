@@ -29,7 +29,7 @@ namespace Lectern2Tests.TestSuite
             var stringBuilder = new StringBuilder()
                 .AppendLine()
                 .AppendLine("Loaded Test Bridges: ")
-                .AppendLine(PrintExportNames(container.GetExports<LecternBridge>()))
+                .AppendLine(PrintExportNames(container.GetExports<ILecternBridge>()))
                 .AppendLine("Loaded Test Plugins: ")
                 .AppendLine(PrintExportNames(container.GetExports<ILecternPlugin>()));
             

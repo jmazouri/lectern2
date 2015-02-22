@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using Lectern2.Core;
-using Lectern2.Interfaces;
-using Lectern2.Plugins;
 using Xunit;
 
 namespace Lectern2Tests.TestSuite

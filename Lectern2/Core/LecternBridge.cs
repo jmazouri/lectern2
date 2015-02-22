@@ -1,27 +1,29 @@
-﻿using Lectern2.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Lectern2.Interfaces;
 using Lectern2.Messages;
 
 namespace Lectern2.Core
 {
-    public abstract class LecternBridge
+    public abstract class LecternBridge : ILecternBridge
     {
-        public abstract void Connect();
-
-        /// <summary>
-        /// Recieves a message to the bridge.
-        /// </summary>
-        /// <param name="bridge"></param>
-        /// <param name="message"></param>
-        public virtual void RecieveMessage(LecternMessage message)
+        public Network Network { get; private set; }
+        public abstract string Name { get; }
+        public virtual bool Load(Network network)
         {
-            Mediator.RecieveMessage(this, message);
+            Network = network;
+            return true;
         }
+        public abstract bool Connect();
+        public abstract void Disconnect(string reason);
+        public abstract void SendMessage(INetworkObject networkObject, LecternMessage message);
 
-        /// <summary>
-        /// Sends a message via the protocol that the bridge uses.
-        /// </summary>
-        /// <param name="bridge">The bridge to send via.</param>
-        /// <param name="message"></param>
-        public abstract void SendMessage(LecternMessage message);
+        protected bool CallEvent<TEvent>(TEvent eventData) where TEvent : Events.NetworkEvent
+        {
+            return Network.CallEvent(eventData);
+        }
     }
 }

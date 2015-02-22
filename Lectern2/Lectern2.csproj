@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Core\Events.cs" />
     <Compile Include="Core\Lectern.cs" />
+    <Compile Include="Core\LecternBridge.cs" />
     <Compile Include="Core\Mediator.cs" />
     <Compile Include="Core\Network.cs" />
     <Compile Include="Interfaces\ILecternBridge.cs" />

@@ -5,13 +5,11 @@ using Lectern2.Messages;
 
 namespace LecternCLI
 {
-    public class ConsoleBridge : ILecternBridge
+    public class ConsoleBridge : LecternBridge
     {
-        public Network Network { get; private set; }
-
-        public string Name
+        public override string Name
         {
-            get { throw new NotImplementedException(); }
+            get { return "LecternCLI"; }
         }
 
         public ConsoleBridge()
@@ -19,25 +17,37 @@ namespace LecternCLI
             Console.Out.WriteLine("Console interface initializing...");
         }
 
-        public bool Load(Network network)
+        public override bool Load(Network network)
         {
-            Network = network;
+            Console.Out.WriteLine("Console interface is ready.");
+            return base.Load(network);
+        }
+
+        public override bool Connect()
+        {
+            Console.Out.WriteLine("Establishing virtual connection to the CLI...");
+            Program.RegisterCLI(this);
+            Console.Out.WriteLine("A virtual connection to the CLI has been established.");
             return true;
         }
 
-        public void Connect()
+        public override void Disconnect(string reason)
         {
-            throw new NotImplementedException();
+            Console.Out.WriteLine("Disconnecting from the CLI...");
+            Program.UnregisterCLI(this);
+            Console.Out.WriteLine("A virtual connection to the CLI has been terminated. (reason: {0})", reason);
         }
 
-        public void SendMessage(INetworkObject networkObject, LecternMessage message)
+        public override void SendMessage(INetworkObject networkObject, LecternMessage message)
         {
-            throw new NotImplementedException();
+            Console.Out.WriteLine("[{0}] {1}: {2}", DateTime.Now.ToShortTimeString(), networkObject.Name, message.MessageBody);
         }
 
-        public void ReceiveMessage(LecternMessage message)
+        internal bool ConsoleInput(string input)
         {
-            Console.Out.WriteLine("[{0}] {1}", DateTime.Now.ToShortTimeString(), message.MessageBody);
+            var message = new LecternMessage(input, Program.ConsoleLectern.Configuration);
+            CallEvent(new Events.ReceiveMessage(this, message));
+            return !message.IsCommand() || message.Command != "quit";
         }
     }
 }

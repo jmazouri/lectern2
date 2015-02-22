@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Lectern2.Interfaces;
 using Lectern2.Messages;
 
@@ -64,6 +65,28 @@ namespace Lectern2.Core
             {
                 lecternBridge.SendMessage(sender, message);
             }
+        }
+
+        public bool Load()
+        {
+            return Bridges.All(bridge => bridge.Load(this)) && Plugins.All(plugin => plugin.Load(this));
+        }
+
+        public void Unload(string reason = "System requested shutdown")
+        {
+            foreach (var lecternBridge in Bridges)
+            {
+                lecternBridge.Disconnect(reason);
+            }
+            foreach (var plugin in Plugins)
+            {
+                plugin.Unload();
+            }
+        }
+
+        public bool Connect()
+        {
+            return Bridges.All(bridge => bridge.Connect());
         }
     }
 }

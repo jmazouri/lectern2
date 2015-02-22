@@ -79,12 +79,10 @@
     <Compile Include="TestSuite\TestClasses\TestLecternPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".xunit" />
     <None Include="app.config" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

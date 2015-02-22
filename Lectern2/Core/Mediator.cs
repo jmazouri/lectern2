@@ -21,14 +21,21 @@ namespace Lectern2.Core
                     new HashSet<ILecternPlugin>(GlobalContainer.Container.GetExportedValues<ILecternPlugin>()),
                     new HashSet<ILecternBridge> {bridge});
 
-                bridge.Load(network);
-
-                foreach (var plugin in network.Plugins.Where(plugin => !plugin.Load(network)))
+                if (network.Load())
                 {
-                    this.Log().Error("Plugin {0} failed to load for {1}!", plugin.Name, bridge.Name);
+                    _networks.Add(network);
                 }
+                else
+                {
+                    this.Log().Error("A network has failed to load due to incomplete initialization!");
+                    network.Unload("Network initialization failure");
+                }
+            }
 
-                _networks.Add(network);
+            foreach (var network in _networks.Where(network => !network.Connect()))
+            {
+                this.Log().Error("A network has failed to load due to incomplete connections!");
+                network.Unload("Network connection failure");
             }
         }
 

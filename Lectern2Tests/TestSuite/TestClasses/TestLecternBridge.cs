@@ -28,14 +28,20 @@ namespace Lectern2Tests.TestSuite.TestClasses
             return true;
         }
 
-        public void Connect()
+        public bool Connect()
         {
             _logger.Info("TestBridge Connected");
+            return true;
         }
 
         public void SendMessage(INetworkObject networkObject, LecternMessage message)
         {
             _logger.Info("Message was Sent: {0}", JsonUtil.ToJson(message));
+        }
+
+        public void Disconnect(string reason)
+        {
+            _logger.Info("TestBridge Disconnected ({0})", reason);
         }
 
         public void ReceiveMessage(LecternMessage message)

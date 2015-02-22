@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Lectern2.Configuration;
 
@@ -36,6 +37,7 @@ namespace Lectern2.Messages
         private static Regex _argumentRegex;
 
         public readonly List<string> Arguments = new List<string>();
+        public string Command { get; private set; }
 
         public LecternMessage(string message, LecternConfiguration config = null, Scope scope = Scope.Chat)
         {
@@ -60,25 +62,33 @@ namespace Lectern2.Messages
         private void ParseArguments()
         {
             Arguments.Clear();
+            Command = "";
 
             if (MessageBody == null) return;
 
             string prefix = _configuration.CommandPrefix;
             string tempBody = MessageBody;
 
-            if (tempBody.Length >= prefix.Length)
+            if (tempBody.Length < prefix.Length || !tempBody.StartsWith(prefix)) return;
+
+            var commandEnd = tempBody.IndexOf(" ", StringComparison.Ordinal);
+            if (commandEnd == -1)
             {
-                if (tempBody.StartsWith(prefix))
-                {
-                    tempBody = tempBody.Substring(prefix.Length, tempBody.Length - prefix.Length);
-                }
+                commandEnd = tempBody.Length;
             }
 
+            Command = tempBody.Substring(prefix.Length, commandEnd - prefix.Length);
+            tempBody = tempBody.Substring(prefix.Length + Command.Length, tempBody.Length - (prefix.Length + Command.Length));
 
             for (var match = _argumentRegex.Match(tempBody); match.Success; match = match.NextMatch())
             {
                 Arguments.Add(match.Value.Trim());
             }
+        }
+
+        public bool IsCommand()
+        {
+            return Command != "";
         }
 
         public static implicit operator LecternMessage(string input)

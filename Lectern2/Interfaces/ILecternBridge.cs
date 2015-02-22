@@ -4,8 +4,8 @@ namespace Lectern2.Interfaces
 {
     public interface ILecternBridge : INetworkObject
     {
-        void Connect();
+        bool Connect();
         void SendMessage(INetworkObject networkObject, LecternMessage message);
-        void ReceiveMessage(LecternMessage message);
+        void Disconnect(string reason);
     }
 }

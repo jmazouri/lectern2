@@ -29,7 +29,7 @@ namespace Lectern2
         /// <summary>
         /// Concurrent dictionary that ensures only one instance of a logger for a type.
         /// </summary>
-        private static readonly ConcurrentDictionary<string, ILog> _dictionary = new ConcurrentDictionary<string, ILog>();
+        private static readonly ConcurrentDictionary<string, ILog> Dictionary = new ConcurrentDictionary<string, ILog>();
 
         /// <summary>
         /// Gets the logger for <see cref="T"/>.
@@ -50,7 +50,7 @@ namespace Lectern2
         /// <returns>Instance of a logger for the object.</returns>
         public static ILog Log(this string objectName)
         {
-            return _dictionary.GetOrAdd(objectName, LoggingExtensions.Logging.Log.GetLoggerFor);
+            return Dictionary.GetOrAdd(objectName, LoggingExtensions.Logging.Log.GetLoggerFor);
         }
     }
 }

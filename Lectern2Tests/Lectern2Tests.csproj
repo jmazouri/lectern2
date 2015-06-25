@@ -38,9 +38,6 @@
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.3.2.0.0\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -51,9 +48,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="this.Log">
       <HintPath>..\packages\this.Log.0.0.3.0\lib\net40\this.Log.dll</HintPath>
-    </Reference>
-    <Reference Include="this.Log-NLog">
-      <HintPath>..\packages\this.Log-NLog.0.0.3.0\lib\net40\this.Log-NLog.dll</HintPath>
     </Reference>
     <Reference Include="xunit.abstractions">
       <HintPath>..\packages\xunit.abstractions.2.0.0-rc1-build2826\lib\net35\xunit.abstractions.dll</HintPath>

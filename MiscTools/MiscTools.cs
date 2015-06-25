@@ -4,7 +4,7 @@ using System.Text;
 using Lectern2.Messages;
 using Lectern2.Plugins;
 
-namespace MiscTools
+namespace Lectern2.Plugins.MiscTools
 {
     public class MiscTools : SimpleLecternPlugin
     {

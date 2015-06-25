@@ -1,4 +1,5 @@
 ﻿using System;
+using Lectern2;
 using Lectern2.Core;
 using Lectern2.Interfaces;
 using Lectern2.Messages;
@@ -14,33 +15,34 @@ namespace LecternCLI
 
         public ConsoleBridge()
         {
-            Console.Out.WriteLine("Console interface initializing...");
+            LoggingExtensions.Logging.Log.InitializeWith<LoggingExtensions.NLog.NLogLog>();
+            this.Log().Info("Console interface initializing...");
         }
 
         public override bool Load(Network network)
         {
-            Console.Out.WriteLine("Console interface is ready.");
+            this.Log().Info("Console interface is ready.");
             return base.Load(network);
         }
 
         public override bool Connect()
         {
-            Console.Out.WriteLine("Establishing virtual connection to the CLI...");
+            this.Log().Info("Establishing virtual connection to the CLI...");
             Program.RegisterCLI(this);
-            Console.Out.WriteLine("A virtual connection to the CLI has been established.");
+            this.Log().Info("A virtual connection to the CLI has been established.");
             return true;
         }
 
         public override void Disconnect(string reason)
         {
-            Console.Out.WriteLine("Disconnecting from the CLI...");
+            this.Log().Info("Disconnecting from the CLI...");
             Program.UnregisterCLI(this);
-            Console.Out.WriteLine("A virtual connection to the CLI has been terminated. (reason: {0})", reason);
+            this.Log().Warn("A virtual connection to the CLI has been terminated. (reason: {0})", reason);
         }
 
         public override void SendMessage(INetworkObject networkObject, LecternMessage message)
         {
-            Console.Out.WriteLine("[{0}] {1}: {2}", DateTime.Now.ToShortTimeString(), networkObject.Name, message.MessageBody);
+            this.Log().Info(String.Format("{0}: {1}", networkObject.Name, message.MessageBody));
         }
 
         internal bool ConsoleInput(string input)

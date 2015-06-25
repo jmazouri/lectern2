@@ -13,6 +13,8 @@ namespace LecternCLI
 
         static void Main()
         {
+            Console.WindowWidth = (int)(Console.LargestWindowWidth * 0.75);
+
             ConsoleLectern = new Lectern(additionalBridges: new HashSet<ILecternBridge> {new ConsoleBridge()});
             //( ͡° ͜ʖ ͡°)
             bool quit;

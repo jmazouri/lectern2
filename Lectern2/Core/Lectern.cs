@@ -17,6 +17,11 @@ namespace Lectern2.Core
 
         public Lectern(LecternConfiguration overrideConfiguration = null, ISet<ILecternBridge> additionalBridges = null, ISet<ILecternPlugin> additionalPlugins = null)
         {
+#if DEBUG
+            NLog.LogManager.ThrowExceptions = true;
+#endif
+            LoggingExtensions.Logging.Log.InitializeWith<LoggingExtensions.NLog.NLogLog>();
+
             if (additionalBridges != null)
             {
                 foreach (var additionalBridge in additionalBridges)

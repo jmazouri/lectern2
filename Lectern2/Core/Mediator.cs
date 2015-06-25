@@ -14,6 +14,7 @@ namespace Lectern2.Core
         public Mediator()
         {
             _bridges.AddRange(GlobalContainer.Container.GetExportedValues<ILecternBridge>());
+
             foreach (var bridge in _bridges)
             {
                 var network = new Network(

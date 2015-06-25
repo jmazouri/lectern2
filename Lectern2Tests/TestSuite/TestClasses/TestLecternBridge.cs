@@ -3,7 +3,6 @@ using Lectern2.Core;
 using Lectern2.Interfaces;
 using Lectern2.Messages;
 using Lectern2.Util;
-using NLog;
 
 namespace Lectern2Tests.TestSuite.TestClasses
 {
@@ -11,8 +10,6 @@ namespace Lectern2Tests.TestSuite.TestClasses
     [Export(typeof(ILecternBridge))]
     public class TestLecternBridge : ILecternBridge
     {
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
-
         public Network Network { get; private set; }
 
         public string Name { get { return "TestBridge"; } }
@@ -30,23 +27,23 @@ namespace Lectern2Tests.TestSuite.TestClasses
 
         public bool Connect()
         {
-            _logger.Info("TestBridge Connected");
+            this.Log().Info("TestBridge Connected");
             return true;
         }
 
         public void SendMessage(INetworkObject networkObject, LecternMessage message)
         {
-            _logger.Info("Message was Sent: {0}", JsonUtil.ToJson(message));
+            this.Log().Info("Message was Sent: {0}", JsonUtil.ToJson(message));
         }
 
         public void Disconnect(string reason)
         {
-            _logger.Info("TestBridge Disconnected ({0})", reason);
+            this.Log().Info("TestBridge Disconnected ({0})", reason);
         }
 
         public void ReceiveMessage(LecternMessage message)
         {
-            _logger.Info("Message was Received: {0}", JsonUtil.ToJson(message));
+            this.Log().Info("Message was Received: {0}", JsonUtil.ToJson(message));
         }
     }
 }
